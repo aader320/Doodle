@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "528953059037",
+    "project_id": "foodbook-a18dd",
+    "storage_bucket": "foodbook-a18dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528953059037:android:1713bf55dfc690c4029d34",
+        "android_client_info": {
+          "package_name": "com.example.foodbook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXtGD7RZkOex1Ddz39rZk1-IwK5o6iK9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
