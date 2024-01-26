@@ -33,25 +33,33 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        signUpScreen()
+        ButtonListeners()
 
         // this is to hide the ation bar
         supportActionBar?.hide()
 
-        // used to put delay
-        Handler(Looper.getMainLooper()).postDelayed({
-            // used to start an activity
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }, 3000) // 3 seconds
+//        // used to put delay
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            // used to start an activity
+//            val intent = Intent(this, SignUpActivity::class.java)
+//            startActivity(intent)
+//        }, 3000) // 3 seconds
     }
 
-    private fun signUpScreen()
+    private fun ButtonListeners()
     {
         val signupbutton = findViewById<Button>(R.id.buttonToSignUpScreen)
+        val signinbutton = findViewById<Button>(R.id.buttonToSignInScreen)
+
         signupbutton.setOnClickListener()
         {
             val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        signinbutton.setOnClickListener()
+        {
+            val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
     }
