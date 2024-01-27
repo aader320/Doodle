@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     {
         val signupbutton = findViewById<Button>(R.id.buttonToSignUpScreen)
         val signinbutton = findViewById<Button>(R.id.buttonToSignInScreen)
+        val uploadbutton = findViewById<Button>(R.id.buttonToUploadScreen)
 
         signupbutton.setOnClickListener()
         {
@@ -60,6 +61,12 @@ class MainActivity : AppCompatActivity() {
         signinbutton.setOnClickListener()
         {
             val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        uploadbutton.setOnClickListener()
+        {
+            val intent = Intent(this, UploadPostActivity::class.java)
             startActivity(intent)
         }
     }

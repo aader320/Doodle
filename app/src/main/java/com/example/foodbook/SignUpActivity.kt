@@ -42,6 +42,7 @@ class SignUpActivity : AppCompatActivity() {
                     else {
                         // account creation failed
                         Log.e(">> Error: ", it.exception.toString())
+                        Toast.makeText(this, "Unsuccessful account creation", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -57,11 +58,6 @@ class SignUpActivity : AppCompatActivity() {
             binding.textInputLayoutEmail.error = "This is a required field"
             return false
         }
-
-//        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//            binding.textInputLayoutEmail.error = "Check the email format"
-//            return false
-//        }
 
         val emailRegex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         if (!email.matches(emailRegex.toRegex())) {
