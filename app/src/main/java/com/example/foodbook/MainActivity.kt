@@ -2,8 +2,6 @@ package com.example.foodbook
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -45,11 +43,6 @@ class MainActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }, 3000) // 3 seconds
 
-        val cameraButton = findViewById<Button>(R.id.cameraButton)
-        cameraButton.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun ButtonListeners()
@@ -58,6 +51,11 @@ class MainActivity : AppCompatActivity() {
         val signinbutton = findViewById<Button>(R.id.buttonToSignInScreen)
         val uploadbutton = findViewById<Button>(R.id.buttonToUploadScreen)
         val gpsbutton = findViewById<Button>(R.id.gpsButton)
+
+        uploadbutton.setOnClickListener {
+            val intent = Intent(this, UploadActivity::class.java)
+            startActivity(intent)
+        }
 
         signupbutton.setOnClickListener()
         {
@@ -71,11 +69,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        uploadbutton.setOnClickListener()
-        {
-            val intent = Intent(this, UploadPostActivity::class.java)
-            startActivity(intent)
-        }
         gpsbutton.setOnClickListener()
         {
             val intent = Intent(this, GpsActivity::class.java)

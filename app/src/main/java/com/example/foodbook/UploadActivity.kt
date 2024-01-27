@@ -18,17 +18,19 @@ import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
 import kotlinx.coroutines.launch
 
-class CameraActivity : AppCompatActivity() {
+class UploadActivity : AppCompatActivity() {
     private lateinit var imageView: ImageView
     private lateinit var captureButton: Button
     private lateinit var textView: TextView
     private lateinit var viewModel: AIModel
     private lateinit var bitMap: Bitmap
 
+    //private val REQUEST_IMAGE_CAPTURE = 102
     private val REQUEST_IMAGE_CAPTURE = 101
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera)
+        setContentView(R.layout.activity_upload)
 
         imageView = findViewById(R.id.imageView)
         captureButton = findViewById(R.id.captureButton)

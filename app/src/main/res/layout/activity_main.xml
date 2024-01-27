@@ -34,8 +34,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Up"
-        app:layout_constraintEnd_toEndOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="328dp" />
 
     <Button
@@ -49,15 +50,6 @@
         app:layout_constraintTop_toBottomOf="@id/buttonToSignUpScreen"
         tools:layout_editor_absoluteY="328dp" />
 
-    <Button
-        android:id="@+id/cameraButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Camera"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToSignInScreen" />
 
     <Button
         android:id="@+id/buttonToUploadScreen"
@@ -67,27 +59,19 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/nav_host_fragment_activity_main"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cameraButton"
+        app:layout_constraintTop_toBottomOf="@id/buttonToSignInScreen"
         tools:layout_editor_absoluteY="328dp" />
+
 
     <Button
         android:id="@+id/gpsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="130dp"
-        android:text="Temp Direction"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToSignInScreen" />
-
-    android:id="@+id/gpsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="145dp"
         android:text="Direction"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToSignInScreen" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonToUploadScreen" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
