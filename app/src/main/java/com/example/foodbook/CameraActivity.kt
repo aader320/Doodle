@@ -32,7 +32,7 @@ class CameraActivity : AppCompatActivity() {
 
         imageView = findViewById(R.id.imageView)
         captureButton = findViewById(R.id.captureButton)
-        textView = findViewById(R.id.textView)
+        textView = findViewById(R.id.geminiPrompt)
 
         captureButton.setOnClickListener {
             dispatchTakePictureIntent()
