@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         val signupbutton = findViewById<Button>(R.id.buttonToSignUpScreen)
         val signinbutton = findViewById<Button>(R.id.buttonToSignInScreen)
         val uploadbutton = findViewById<Button>(R.id.buttonToUploadScreen)
+        val gpsbutton = findViewById<Button>(R.id.gpsButton)
 
         signupbutton.setOnClickListener()
         {
@@ -75,5 +76,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, UploadPostActivity::class.java)
             startActivity(intent)
         }
+        gpsbutton.setOnClickListener()
+        {
+            val intent = Intent(this, GpsActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

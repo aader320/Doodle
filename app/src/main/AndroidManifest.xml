@@ -21,6 +21,9 @@
             android:name=".CameraActivity"
             android:exported="false" />
         <activity
+            android:name=".GpsActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
