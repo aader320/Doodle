@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity() {
 //            val intent = Intent(this, SignUpActivity::class.java)
 //            startActivity(intent)
 //        }, 3000) // 3 seconds
+
+        val cameraButton = findViewById<Button>(R.id.cameraButton)
+        cameraButton.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun ButtonListeners()
