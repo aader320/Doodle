@@ -74,6 +74,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, GpsActivity::class.java)
             startActivity(intent)
         }
-
     }
 }
