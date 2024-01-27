@@ -57,4 +57,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("com.google.android.gms:play-services-maps:17.0.1")
 }
