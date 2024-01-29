@@ -11,12 +11,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodbook.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity()
+{
     private lateinit var binding: ActivityMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
+        initUploadVariables()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        ButtonListeners()
+        onClickListeners()
 
         // this is to hide the ation bar
         supportActionBar?.hide()
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun ButtonListeners()
+    private fun onClickListeners()
     {
         val signupbutton = findViewById<Button>(R.id.buttonToSignUpScreen)
         val signinbutton = findViewById<Button>(R.id.buttonToSignInScreen)
