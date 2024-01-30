@@ -1,5 +1,6 @@
 package com.example.foodbook
 
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -7,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -20,6 +22,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.RectangularBounds
+import com.google.android.libraries.places.api.model.TypeFilter
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.storage.StorageReference
@@ -50,6 +61,9 @@ class UploadActivity : AppCompatActivity()
         })
 
         onClickListeners()
+
+        Places.initialize(applicationContext, "AIzaSyAiaPMS-yV8eKDHSLipnAypwshfVd0kWog")
+        val placesClient: PlacesClient = Places.createClient(this)
     }
 
     private fun onClickListeners()
@@ -58,6 +72,9 @@ class UploadActivity : AppCompatActivity()
         val captureButton = findViewById<Button>(R.id.captureButton)
         val chooseImageButton = findViewById<Button>(R.id.chooseImageButton)
         val uploadToFirebaseButton = findViewById<Button>(R.id.buttonUploadToFirebase)
+        val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
+        autocompleteFragment.setTypeFilter(TypeFilter.ESTABLISHMENT)
+        val resultLatLng = findViewById<TextView>(R.id.resultText)
 
         generateText.setOnClickListener {
             viewModel.generateText(bitMap)
@@ -75,6 +92,22 @@ class UploadActivity : AppCompatActivity()
             //UploadLogic("hello", "world")    // test to see if this will call only. to remove
             UploadFile("uploads")
         }
+
+        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(LatLng(-33.0, 151.0), LatLng(-33.0, 152.0)))
+        autocompleteFragment.setCountries("SG")
+        autocompleteFragment.setPlaceFields(listOf(
+            Place.Field.ID, Place.Field.NAME,
+            Place.Field.LAT_LNG))
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                resultLatLng.text = "${place.latLng}"
+                Log.i(ContentValues.TAG, "Place: ${place.name}, ${place.id}")
+            }
+
+            override fun onError(status: Status) {
+                Log.i(ContentValues.TAG, "An error occurred: ${status}")
+            }
+        })
     }
 
     private fun openFileChooser()
