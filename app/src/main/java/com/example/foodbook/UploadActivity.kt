@@ -35,6 +35,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storageMetadata
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -77,6 +78,12 @@ class UploadActivity : AppCompatActivity()
         val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
         autocompleteFragment.setTypeFilter(TypeFilter.ESTABLISHMENT)
         val resultLatLng = findViewById<TextView>(R.id.resultText)
+        val homepagebutton = findViewById<Button>(R.id.homepageButton)
+
+        homepagebutton.setOnClickListener {
+            val intent = Intent(this, HomepageActivity::class.java)
+            startActivity(intent)
+        }
 
         generateText.setOnClickListener {
             viewModel.generateText(bitMap)
@@ -93,7 +100,6 @@ class UploadActivity : AppCompatActivity()
         uploadToFirebaseButton.setOnClickListener {
             val filepathString: String = "uploads/" + intent.getStringExtra("USER_EMAIL")
             val lStorage: StorageReference = FirebaseStorage.getInstance().getReference(filepathString)
-            println(filepathString)
             UploadFile(lStorage)
         }
 
@@ -160,8 +166,20 @@ class UploadActivity : AppCompatActivity()
     {
         val progressbar = findViewById<ProgressBar>(R.id.uploadProgressBar)
         val captiontext = findViewById<TextInputLayout>(R.id.postCaptionTextInputLayout)
+        val caption:String = captiontext.editText!!.text.toString()
+        val resultLatLng = findViewById<TextView>(R.id.resultText)
+        val GPSresult:String = resultLatLng.text.toString()
 
-        println("upload file started")
+        if(caption.isEmpty()) {
+            Toast.makeText(this, "Please Input a caption!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if(GPSresult.isEmpty()) {
+            Toast.makeText(this, "Please choose a location!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val filepathString: String = System.currentTimeMillis().toString() + ".jpeg"
         val lStorage: StorageReference = Storage.child(filepathString)
 
@@ -170,11 +188,16 @@ class UploadActivity : AppCompatActivity()
         val baos = ByteArrayOutputStream()
         bitMap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
 
-        val data = baos.toByteArray()
-        var uploadTask = lStorage.putBytes(data)
+        val metadata = storageMetadata {
+            contentType = "image/jpg"
+            setCustomMetadata("Caption", caption)
+            setCustomMetadata("Location", GPSresult)
+        }
 
+        val Imagedata = baos.toByteArray()
+        var uploadImage = lStorage.putBytes(Imagedata, metadata)
 
-        uploadTask.addOnFailureListener {
+        uploadImage.addOnFailureListener {
             Toast.makeText(this, "UNSUCCESSFUL UPLOAD", Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener { taskSnapshot->
             Toast.makeText(this, "UPLOAD SUCCESSFUL", Toast.LENGTH_SHORT).show()
