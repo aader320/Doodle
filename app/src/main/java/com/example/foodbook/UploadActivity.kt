@@ -33,8 +33,10 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
 class UploadActivity : AppCompatActivity()
@@ -89,8 +91,10 @@ class UploadActivity : AppCompatActivity()
         }
 
         uploadToFirebaseButton.setOnClickListener {
-            //UploadLogic("hello", "world")    // test to see if this will call only. to remove
-            UploadFile("uploads")
+            val filepathString: String = "uploads/" + intent.getStringExtra("USER_EMAIL")
+            val lStorage: StorageReference = FirebaseStorage.getInstance().getReference(filepathString)
+            println(filepathString)
+            UploadFile(lStorage)
         }
 
         autocompleteFragment.setLocationBias(RectangularBounds.newInstance(LatLng(-33.0, 151.0), LatLng(-33.0, 152.0)))
@@ -152,40 +156,28 @@ class UploadActivity : AppCompatActivity()
         }
     }
 
-    public fun UploadFile(filepath: String)
+    public fun UploadFile(Storage: StorageReference)
     {
         val progressbar = findViewById<ProgressBar>(R.id.uploadProgressBar)
-        val captiontext = findViewById<TextInputEditText>(R.id.postCaptionTextInputLayout)
+        val captiontext = findViewById<TextInputLayout>(R.id.postCaptionTextInputLayout)
 
-        if(getImageURI() != null)
-        {
-            var uri: Uri? = getImageURI()
-            val filepathString: String = filepath + System.currentTimeMillis() + "." + getFileExtension(UploadActivity().applicationContext, uri!!)
+        println("upload file started")
+        val filepathString: String = System.currentTimeMillis().toString() + ".jpeg"
+        val lStorage: StorageReference = Storage.child(filepathString)
 
-            println(filepathString)
+        imageView.isDrawingCacheEnabled = true
+        imageView.buildDrawingCache()
+        val baos = ByteArrayOutputStream()
+        bitMap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
 
-            var lStorage: StorageReference = mStorageRef.child(filepathString)
-            lStorage.putFile(uri!!)
-                .addOnSuccessListener { taskSnapshot ->
-                    lStorage.downloadUrl.addOnSuccessListener {downloaduri->
-                        // println(downloaduri.toString())
-                        val downloadURL: String = downloaduri.toString()
-                        Toast.makeText(UploadActivity().application, "Upload successful", Toast.LENGTH_SHORT).show()
-                        val uploadinst = UploadLogic(captiontext.text.toString().trim(), downloadURL)
-                        val uploadID: String? = mDatabaseRef.push().key
-                        mDatabaseRef.child(uploadID!!).setValue(uploadinst)
-                    }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(UploadActivity().application, "ERROR: unable to upload file", Toast.LENGTH_SHORT).show()
-                }
-                .addOnProgressListener {
-                    var uploadProgress: Double = (100.0 * it.bytesTransferred) / it.totalByteCount
-                    progressbar.setProgress(uploadProgress.toInt())
-                }
-        }
-        else {
-            Toast.makeText(UploadActivity().applicationContext, "No imagefile selected", Toast.LENGTH_SHORT).show()
+        val data = baos.toByteArray()
+        var uploadTask = lStorage.putBytes(data)
+
+
+        uploadTask.addOnFailureListener {
+            Toast.makeText(this, "UNSUCCESSFUL UPLOAD", Toast.LENGTH_SHORT).show()
+        }.addOnSuccessListener { taskSnapshot->
+            Toast.makeText(this, "UPLOAD SUCCESSFUL", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -27,6 +27,12 @@ class SignInActivity : AppCompatActivity() {
         supportActionBar?.hide()
         auth = Firebase.auth
 
+        onclicklisteners()
+    }
+
+
+    private fun onclicklisteners()
+    {
         binding.buttonSignIn.setOnClickListener() {
             if(checkAllField()) {
                 // all signin fields are satisfied
@@ -36,7 +42,9 @@ class SignInActivity : AppCompatActivity() {
                     if(it.isSuccessful) {
                         // if the signin is successful
                         Toast.makeText(this, "Sign in Successful", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
+                        val intent = Intent(this, UploadActivity::class.java).apply {
+                            putExtra("USER_EMAIL", email)
+                        }
                         startActivity(intent)
                         finish()    // destroy the activity
                     }
@@ -47,6 +55,20 @@ class SignInActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        binding.buttonSignUp.setOnClickListener() {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.buttonAutosignin.setOnClickListener() {
+            Toast.makeText(this, "Sign into abc@gmail.com Successful", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, UploadActivity::class.java).apply {
+                putExtra("USER_EMAIL", "abc@gmail.com")
+            }
+            startActivity(intent)
+            finish()    // destroy the activity
         }
     }
 
