@@ -57,12 +57,12 @@ class SignInActivity : AppCompatActivity() {
             }
         }
 
-        binding.buttonSignUp.setOnClickListener() {
+        binding.SignUpTextView.setOnClickListener() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
-        binding.buttonAutosignin.setOnClickListener() {
+        binding.DEBUGautomaticSignIn.setOnClickListener() {
             Toast.makeText(this, "Sign into abc@gmail.com Successful", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, UploadActivity::class.java).apply {
                 putExtra("USER_EMAIL", "abc@gmail.com")
