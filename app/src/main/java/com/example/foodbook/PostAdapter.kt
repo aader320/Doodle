@@ -26,7 +26,9 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>)
             .into(holder.imageView)
 
         holder.captionText.text = myPost.caption
-        holder.usernameText.text = myPost.location
+        holder.usernameText.text = myPost.userEmail
+        holder.timeSinceEpochText.text = myPost.dateTime.toString()
+        holder.locationText.text = myPost.location
     }
 
     override fun getItemCount(): Int {
@@ -38,5 +40,7 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>)
         val imageView: ImageView = itemView.findViewById(R.id.imageViewPost)
         val captionText: TextView = itemView.findViewById(R.id.textViewCaption)
         val usernameText: TextView = itemView.findViewById(R.id.textViewUsername)
+        val locationText: TextView = itemView.findViewById(R.id.textViewLocation)
+        val timeSinceEpochText: TextView = itemView.findViewById(R.id.textViewTime)
     }
 }

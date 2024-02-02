@@ -42,7 +42,7 @@ class SignInActivity : AppCompatActivity() {
                     if(it.isSuccessful) {
                         // if the signin is successful
                         Toast.makeText(this, "Sign in Successful", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, UploadActivity::class.java).apply {
+                        val intent = Intent(this, MainActivity::class.java).apply {
                             putExtra("USER_EMAIL", email)
                         }
                         startActivity(intent)
@@ -64,7 +64,7 @@ class SignInActivity : AppCompatActivity() {
 
         binding.DEBUGautomaticSignIn.setOnClickListener() {
             Toast.makeText(this, "Sign into abc@gmail.com Successful", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, UploadActivity::class.java).apply {
+            val intent = Intent(this, MainActivity::class.java).apply {
                 putExtra("USER_EMAIL", "abc@gmail.com")
             }
             startActivity(intent)

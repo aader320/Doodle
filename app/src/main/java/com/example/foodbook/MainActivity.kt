@@ -37,14 +37,6 @@ class MainActivity : AppCompatActivity()
 
         // this is to hide the ation bar
         supportActionBar?.hide()
-
-//        // used to put delay
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            // used to start an activity
-//            val intent = Intent(this, SignUpActivity::class.java)
-//            startActivity(intent)
-//        }, 3000) // 3 seconds
-
     }
 
     private fun onClickListeners()
@@ -55,7 +47,9 @@ class MainActivity : AppCompatActivity()
         val gpsbutton = findViewById<Button>(R.id.gpsButton)
 
         uploadbutton.setOnClickListener {
-            val intent = Intent(this, UploadActivity::class.java)
+            val intent = Intent(this, UploadActivity::class.java).apply {
+                putExtra("USER_EMAIL", intent.getStringExtra("USER_EMAIL"))
+            }
             startActivity(intent)
         }
 

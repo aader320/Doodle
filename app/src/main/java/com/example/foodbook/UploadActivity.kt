@@ -46,6 +46,7 @@ class UploadActivity : AppCompatActivity()
     private lateinit var textView: TextView
     private lateinit var viewModel: AIModel
     private lateinit var bitMap: Bitmap     // store this to firebase
+    private lateinit var userEmail: String
 
     private val REQUEST_IMAGE_CAPTURE = 101
     private val PICK_IMAGE_REQUEST = 102
@@ -67,6 +68,8 @@ class UploadActivity : AppCompatActivity()
 
         Places.initialize(applicationContext, "AIzaSyAiaPMS-yV8eKDHSLipnAypwshfVd0kWog")
         val placesClient: PlacesClient = Places.createClient(this)
+
+        userEmail = intent.getStringExtra("USER_EMAIL").toString()
     }
 
     private fun onClickListeners()
@@ -98,7 +101,8 @@ class UploadActivity : AppCompatActivity()
         }
 
         uploadToFirebaseButton.setOnClickListener {
-            val filepathString: String = "uploads/" + intent.getStringExtra("USER_EMAIL")
+            //val filepathString: String = "uploads/" + intent.getStringExtra("USER_EMAIL")
+            val filepathString: String = "uploads/" + userEmail
             val lStorage: StorageReference = FirebaseStorage.getInstance().getReference(filepathString)
             UploadFile(lStorage)
         }
@@ -192,6 +196,8 @@ class UploadActivity : AppCompatActivity()
             contentType = "image/jpg"
             setCustomMetadata("Caption", caption)
             setCustomMetadata("Location", GPSresult)
+            setCustomMetadata("User_Email", userEmail)
+            setCustomMetadata("TimeSinceEpoch", System.currentTimeMillis().toString())
         }
 
         val Imagedata = baos.toByteArray()
@@ -202,6 +208,8 @@ class UploadActivity : AppCompatActivity()
         }.addOnSuccessListener { taskSnapshot->
             Toast.makeText(this, "UPLOAD SUCCESSFUL", Toast.LENGTH_SHORT).show()
         }
+        .addOnProgressListener { snapshot->
+            progressbar.setProgress((snapshot.bytesTransferred / snapshot.totalByteCount * 100).toInt())
+        }
     }
-
 }
