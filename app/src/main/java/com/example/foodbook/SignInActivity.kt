@@ -4,12 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import com.example.foodbook.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -22,6 +25,13 @@ class SignInActivity : AppCompatActivity() {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //setContentView(R.layout.activity_sign_in)
+
+        // Code to underline "sign up" text
+        val mTextView = findViewById<TextView>(R.id.SignUpTextView)
+        val mString = "sign up"
+        val mSpannableString = SpannableString(mString)
+        mSpannableString.setSpan(UnderlineSpan(), 0, mSpannableString.length, 0)
+        mTextView.text = mSpannableString
 
         // use to remove action bar (why?)
         supportActionBar?.hide()
