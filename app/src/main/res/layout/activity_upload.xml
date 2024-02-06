@@ -6,134 +6,149 @@
     android:layout_height="match_parent"
     tools:context=".UploadActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="357dp"
-        android:layout_height="330dp"
-        app:layout_constraintBottom_toTopOf="@+id/captureButton"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/geminiPrompt"
-        android:layout_width="359dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.12" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/postCaptionTextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="451dp"
-        app:layout_constraintHorizontal_bias="0.904"
-        app:layout_constraintVertical_bias="0.975"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/geminiPrompt"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Post Your Caption" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="357dp"
+                android:layout_height="330dp"
+                app:layout_constraintBottom_toTopOf="@+id/captureButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <TextView
+                android:id="@+id/geminiPrompt"
+                android:layout_width="359dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:layout_constraintVertical_bias="0.12" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/postCaptionTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="451dp"
+                app:layout_constraintHorizontal_bias="0.904"
+                app:layout_constraintVertical_bias="0.975"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/geminiPrompt"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Post Your Caption" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
-        android:id="@+id/chooseImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="Choose Image"
-        android:layout_marginTop="10dp"
-        tools:layout_editor_absoluteX="186dp"
-        tools:layout_editor_absoluteY="661dp"
-        app:layout_constraintHorizontal_bias="0.904"
-        app:layout_constraintVertical_bias="0.975"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/captureButton"
-        app:layout_constraintTop_toBottomOf="@+id/postCaptionTextInputLayout"
-        />
+            <Button
+                android:id="@+id/chooseImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Choose Image"
+                android:layout_marginTop="10dp"
+                tools:layout_editor_absoluteX="186dp"
+                tools:layout_editor_absoluteY="661dp"
+                app:layout_constraintHorizontal_bias="0.904"
+                app:layout_constraintVertical_bias="0.975"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/captureButton"
+                app:layout_constraintTop_toBottomOf="@+id/postCaptionTextInputLayout"
+                />
 
 
-    <Button
-        android:id="@+id/captureButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="Capture Photo"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/chooseImageButton"
-        app:layout_constraintHorizontal_bias="0.099"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postCaptionTextInputLayout"
-        app:layout_constraintVertical_bias="0.976" />
+            <Button
+                android:id="@+id/captureButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Capture Photo"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/chooseImageButton"
+                app:layout_constraintHorizontal_bias="0.099"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/postCaptionTextInputLayout"
+                app:layout_constraintVertical_bias="0.976" />
 
-    <Button
-        android:id="@+id/buttonGenerateText"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginHorizontal="10dp"
-        android:text="Generate Text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postCaptionTextInputLayout"
-        />
+            <Button
+                android:id="@+id/buttonGenerateText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginHorizontal="10dp"
+                android:text="Generate Text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.504"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/postCaptionTextInputLayout"
+                />
 
-    <Button
-        android:id="@+id/buttonUploadToFirebase"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="10dp"
-        android:text="Upload to Firebase"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGenerateText"
-        />
+            <Button
+                android:id="@+id/buttonUploadToFirebase"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:text="Upload to Firebase"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.504"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonGenerateText"
+                />
 
-    <ProgressBar
-        android:id="@+id/uploadProgressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonUploadToFirebase" />
+            <ProgressBar
+                android:id="@+id/uploadProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonUploadToFirebase" />
 
-    <fragment android:id = "@+id/autocomplete_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name = "com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
+            <fragment android:id = "@+id/autocomplete_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name = "com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
 
-    <TextView
-        android:id="@+id/resultText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/autocomplete_fragment"
-        tools:layout_editor_absoluteX="179dp" />
+            <TextView
+                android:id="@+id/resultText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="TextView"
+                app:layout_constraintTop_toBottomOf="@+id/autocomplete_fragment"
+                tools:layout_editor_absoluteX="179dp" />
 
-    <Button
-        android:id="@+id/homepageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="Homepage"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonUploadToFirebase"
-        app:layout_constraintVertical_bias="0.976" />
+            <Button
+                android:id="@+id/homepageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Homepage"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonUploadToFirebase"
+                app:layout_constraintVertical_bias="0.976" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
