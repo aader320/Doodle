@@ -116,6 +116,7 @@ class UploadActivity : AppCompatActivity()
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 resultLatLng.text = "${place.latLng}"
+                resultLatLng.text = resultLatLng.text.toString().replace("lat/lng: (", "").replace(")", "")
                 resultLocation.text = "${place.name}"
                 Log.i(ContentValues.TAG, "Place: ${place.name}, ${place.id}")
             }
