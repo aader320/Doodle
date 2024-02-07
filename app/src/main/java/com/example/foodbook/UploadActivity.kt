@@ -81,6 +81,7 @@ class UploadActivity : AppCompatActivity()
         val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
         autocompleteFragment.setTypeFilter(TypeFilter.ESTABLISHMENT)
         val resultLatLng = findViewById<TextView>(R.id.resultText)
+        val resultLocation = findViewById<TextView>(R.id.resultName)
         val homepagebutton = findViewById<Button>(R.id.homepageButton)
 
         homepagebutton.setOnClickListener {
@@ -115,6 +116,7 @@ class UploadActivity : AppCompatActivity()
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 resultLatLng.text = "${place.latLng}"
+                resultLocation.text = "${place.name}"
                 Log.i(ContentValues.TAG, "Place: ${place.name}, ${place.id}")
             }
 
