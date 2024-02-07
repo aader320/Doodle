@@ -62,4 +62,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     // For Google Map
     implementation("com.google.android.gms:play-services-maps:17.0.1")
+
+    implementation("androidx.core:core-splashscreen:1.0.0")
+
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+//    implementation("com.google.android.material:material:1.2.1")
+    implementation("com.google.android.material:material:1.1.0")
+    implementation("com.yuyakaido.android:card-stack-view:2.3.4")
+    implementation("com.squareup.picasso:picasso:2.8")
 }
