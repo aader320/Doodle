@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.foodbook.Post;
 import com.example.foodbook.R;
 import com.example.foodbook.SwipeCard.ItemModel;
 import com.squareup.picasso.Picasso;
@@ -15,11 +16,11 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CardSwipeAdapter extends RecyclerView.Adapter<CardSwipeAdapter.ViewHolder> {
+public class CardSwipeAdapter extends RecyclerView.Adapter<CardSwipeAdapter.ViewHolder>
+{
+    private List<Post> items;
 
-    private List<ItemModel> items;
-
-    public CardSwipeAdapter(List<ItemModel> items) {
+    public CardSwipeAdapter(List<Post> items) {
         this.items = items;
     }
 
@@ -41,7 +42,9 @@ public class CardSwipeAdapter extends RecyclerView.Adapter<CardSwipeAdapter.View
         return items.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+
+    class ViewHolder extends RecyclerView.ViewHolder
+    {
         ImageView image;
         TextView nama, usia, kota;
         ViewHolder(@NonNull View itemView) {
@@ -52,23 +55,23 @@ public class CardSwipeAdapter extends RecyclerView.Adapter<CardSwipeAdapter.View
             kota = itemView.findViewById(R.id.item_city);
         }
 
-        void setData(ItemModel data) {
+        void setData(Post data) {
             Picasso.get()
-                    .load(data.getImage())
+                    .load(data.getImageUrl())
                     .fit()
                     .centerCrop()
                     .into(image);
-            nama.setText(data.getNama());
-            usia.setText(data.getUsia());
-            kota.setText(data.getKota());
+            nama.setText(data.getUserEmail());
+            usia.setText(data.getLocation());
+            kota.setText(data.getCaption());
         }
     }
 
-    public List<ItemModel> getItems() {
+    public List<Post> getItems() {
         return items;
     }
 
-    public void setItems(List<ItemModel> items) {
+    public void setItems(List<Post> items) {
         this.items = items;
     }
 }

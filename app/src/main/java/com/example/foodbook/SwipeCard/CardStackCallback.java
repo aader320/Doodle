@@ -4,11 +4,13 @@ import java.util.List;
 
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.example.foodbook.Post;
+
 public class CardStackCallback extends DiffUtil.Callback {
 
-    private List<ItemModel> old, baru;
+    private List<Post> old, baru;
 
-    public CardStackCallback(List<ItemModel> old, List<ItemModel> baru) {
+    public CardStackCallback(List<Post> old, List<Post> baru) {
         this.old = old;
         this.baru = baru;
     }
@@ -25,7 +27,7 @@ public class CardStackCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return old.get(oldItemPosition).getImage() == baru.get(newItemPosition).getImage();
+        return old.get(oldItemPosition).getImageUrl() == baru.get(newItemPosition).getImageUrl();
     }
 
     @Override

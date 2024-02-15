@@ -31,6 +31,7 @@ class HomepageActivity : AppCompatActivity()
         // Initialize the viewmodel
         try {
             postViewModel = ViewModelProvider(this).get(postsViewModel::class.java)
+            //postViewModel.initializePostsRepository()
         } catch (e: Exception) {
             println("ViewModelInit. >>> Error initializing ViewModel: ${e.message}")
         }
@@ -39,15 +40,19 @@ class HomepageActivity : AppCompatActivity()
         val layoutManager = LinearLayoutManager(this)
         itemPostRecyclerview.layoutManager = layoutManager
 
-        val filepathString: String = "uploads"
-        val lStorage: StorageReference = FirebaseStorage.getInstance().getReference(filepathString)
-
-        getAllFilesInMainFolder(lStorage)
+        getAllFilesInMainFolder()
+//
+//        val adapter =
+//            postViewModel.getAllPosts()?.let { PostAdapter(this@HomepageActivity, it) }
+//        itemPostRecyclerview.adapter = adapter
     }
 
 
-    private fun getAllFilesInMainFolder(folderRef: StorageReference)
+    private fun getAllFilesInMainFolder()
     {
+        val filepathString: String = "uploads"
+        val folderRef: StorageReference = FirebaseStorage.getInstance().getReference(filepathString)
+
         CoroutineScope(Dispatchers.Main).launch {
             val posts = mutableListOf<Post>()
 
@@ -55,8 +60,6 @@ class HomepageActivity : AppCompatActivity()
             {
                 // Await the entire list operation
                 val listResult = folderRef.listAll().await()
-
-                val subfolderTasks = mutableListOf<Task<ListResult>>()
 
                 // Iterate through each subfolder
                 listResult.prefixes.forEach { subfolder ->
@@ -89,10 +92,12 @@ class HomepageActivity : AppCompatActivity()
                 }
 
                 // Update UI after all tasks are completed
-                val adapter = PostAdapter(this@HomepageActivity, postViewModel.getAllPosts().await())
+                //val adapter = PostAdapter(this@HomepageActivity, posts)
+                val adapter =
+                    postViewModel.getAllPosts()?.let { PostAdapter(this@HomepageActivity, it) }
                 itemPostRecyclerview.adapter = adapter
                 println(">> TEST USERPOST SIZE: ${posts.size}")
-                println(">> TEST VIEWMODEL FLOW SIZE: ${postViewModel.getPostSize().await()}")
+                println(">> TEST VIEWMODEL FLOW SIZE: ${postViewModel.getPostSize()}")
             }
             catch (e: Exception) {
                 // Handle exceptions

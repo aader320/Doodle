@@ -92,6 +92,7 @@ dependencies {
     //implementation("androidx.room:room-runtime:$room_version")
     //implementation("androidx.room:room-common:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
-    ksp("androidx.room:room-compiler:2.5.0")
+    //ksp("androidx.room:room-compiler:2.5.0")
+    ksp("androidx.room:room-compiler:$room_version")
     androidTestImplementation("androidx.room:room-testing:$room_version")
 }

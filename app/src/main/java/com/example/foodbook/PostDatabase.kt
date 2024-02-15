@@ -25,6 +25,8 @@ data class Post (
     @ColumnInfo(name = "caption")
     val caption: String,
 
+    // add money
+
     @ColumnInfo(name = "location")
     val location: String,
 
@@ -46,7 +48,7 @@ interface PostsDAO
     suspend fun updatePost(post: Post)
 
     @Query("SELECT * FROM Posts_Table ORDER BY post_id ASC")
-    fun getAllPosts(): Flow<List<Post>>
+    fun getAllPosts(): List<Post>
 
     @Query("SELECT * FROM Posts_Table WHERE dateTime = :postDateTime ORDER BY post_id ASC")
     fun getPostsByDateTime(postDateTime: Long): List<Post>
@@ -77,7 +79,7 @@ abstract class PostDatabase : RoomDatabase()
 
                 try {
                     val instance = Room.databaseBuilder(
-                        context.applicationContext,
+                        context,
                         PostDatabase::class.java,
                         DATABASE_NAME
                     ).build()
@@ -97,7 +99,7 @@ abstract class PostDatabase : RoomDatabase()
 
 class PostsRepository(private val postsDAO: PostsDAO)
 {
-    public var allPosts: Flow<List<Post>> = postsDAO.getAllPosts()
+    public var allPosts: List<Post> = postsDAO.getAllPosts()
 
     suspend fun insert(post: Post) {
         postsDAO.insertPost(post)
