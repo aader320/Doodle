@@ -1,23 +1,18 @@
-package com.example.foodbook
+package com.example.foodbook.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodbook.Post
+import com.example.foodbook.PostAdapter
 import com.example.foodbook.R
 import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
-import com.google.common.primitives.UnsignedLong
-import com.google.firebase.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ListResult
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -86,18 +81,12 @@ class HomepageActivity : AppCompatActivity() {
                 val adapter = PostAdapter(this@HomepageActivity, posts)
                 itemPostRecyclerview.adapter = adapter
                 println(">> TEST USERPOST SIZE: ${posts.size}")
-            } catch (e: Exception) {
+
+            }
+            catch (e: Exception) {
                 // Handle exceptions
                 println("Failed to list files in folder: ${folderRef.path}, Error: ${e.message}")
             }
         }
     }
 }
-
-
-
-//val fileref = lStorage.child("abc@gmail.com/1706760956196.jpeg")
-//        fileref.downloadUrl
-//            .addOnSuccessListener { downloadURL->
-//                //println(">> TEST: ${downloadURL}")
-//            }

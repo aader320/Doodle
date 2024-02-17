@@ -1,4 +1,4 @@
-package com.example.foodbook
+package com.example.foodbook.Activities
 
 import android.content.Intent
 import android.net.Uri
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.foodbook.R
 import com.google.android.material.textfield.TextInputEditText
 
 class GpsActivity : AppCompatActivity() {

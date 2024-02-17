@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFA553"
-    tools:context=".SignInActivity">
+    tools:context=".Activities.SignInActivity">
 
     <ScrollView
         android:layout_width="0dp"

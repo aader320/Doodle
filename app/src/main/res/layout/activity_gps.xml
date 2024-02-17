@@ -5,7 +5,7 @@
     android:id="@+id/location"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GpsActivity">
+    tools:context=".Activities.GpsActivity">
 
     <Button
         android:id="@+id/findButton"

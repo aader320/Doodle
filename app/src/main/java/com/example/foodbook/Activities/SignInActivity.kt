@@ -1,4 +1,4 @@
-package com.example.foodbook
+package com.example.foodbook.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,11 +8,11 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.foodbook.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import com.example.foodbook.R
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth

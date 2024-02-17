@@ -1,10 +1,9 @@
-package com.example.foodbook
+package com.example.foodbook.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.util.Patterns
 import android.widget.Toast
 import com.example.foodbook.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -26,12 +25,14 @@ class SignUpActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        binding.buttonSignUp.setOnClickListener(){
+        binding.buttonSignUp.setOnClickListener()
+        {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
             println("ONCLICK BUTTON SET")
 
-            if(checkAllField()) {
+            if(checkAllField())
+            {
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener() {
 
                     println("ALL FIELDS CHECKED")
