@@ -15,8 +15,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -59,19 +57,23 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>)
 
 
 
-class postsViewModel(application: Application)
-    : AndroidViewModel(application)
+class postsViewModel(appl: Application)
+    : AndroidViewModel(appl)
 {
     private var repository: PostsRepository
     val postsScope = CoroutineScope(Dispatchers.IO)
 
     init {
-        val dao = PostsDatabase.getinstance(application).postDAO()
+        val dao = PostDatabase.getInstance(appl).postDAO()
         repository = PostsRepository(dao)
     }
 
     fun insert(post: Post) = viewModelScope.launch {
         repository.insert(post)
+    }
+
+    fun getPostSize(): Deferred<Int> {
+        return postsScope.async{repository.allPosts.first().size}
     }
 
     fun getAllPosts(): Deferred<List<Post>> {

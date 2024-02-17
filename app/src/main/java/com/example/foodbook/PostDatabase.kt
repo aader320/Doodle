@@ -19,7 +19,7 @@ data class Post (
     @PrimaryKey(autoGenerate = true)
     val post_id: Int = 0,
 
-    @ColumnInfo(name = "image_url")
+    @ColumnInfo(name = "imageUrl")
     val imageUrl: String,
 
     @ColumnInfo(name = "caption")
@@ -32,7 +32,7 @@ data class Post (
     val userEmail: String,
 
     @ColumnInfo(name = "dateTime")
-    val dateTime: ULong
+    val dateTime: Long
 )
 
 
@@ -49,15 +49,15 @@ interface PostsDAO
     fun getAllPosts(): Flow<List<Post>>
 
     @Query("SELECT * FROM Posts_Table WHERE dateTime = :postDateTime ORDER BY post_id ASC")
-    fun getPostsByDateTime(postDateTime: ULong): List<Post>
+    fun getPostsByDateTime(postDateTime: Long): List<Post>
 
     @Query("SELECT * FROM Posts_Table WHERE userEmail = :inputUserEmail ORDER BY post_id ASC")
     fun getPostsByUser(inputUserEmail : String): List<Post>
 }
 
 
-@Database(entities = [Post::class], version = 1, exportSchema = false)
-abstract class PostsDatabase : RoomDatabase()
+@Database(entities = [Post::class], version = 1)
+abstract class PostDatabase : RoomDatabase()
 {
     abstract fun postDAO(): PostsDAO
 
@@ -66,21 +66,29 @@ abstract class PostsDatabase : RoomDatabase()
         private const val DATABASE_NAME = "PostsDatabase"
 
         @Volatile
-        private var INSTANCE: PostsDatabase? = null
+        private var INSTANCE: PostDatabase? = null
 
-        fun getinstance(context: Context): PostsDatabase
+        fun getInstance(context: Context): PostDatabase
         {
+            println("I AM INSIDE THE GETINSTANCE OF MY POST DATABASEEEEE")
             return INSTANCE ?: synchronized(this)
             {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    PostsDatabase::class.java,
-                    DATABASE_NAME
-                ).fallbackToDestructiveMigration()
-                    .build()
+                println("I AM CREATING A NEW INSTANCE OF MY POST DATABASEEEEE")
 
-                INSTANCE = instance
-                return instance
+                try {
+                    val instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        PostDatabase::class.java,
+                        DATABASE_NAME
+                    ).build()
+
+                    INSTANCE = instance
+                    instance
+                }
+                catch (e: Exception) {
+                    println("ERROR: ${e.message}")
+                    throw e
+                }
             }
         }
     }
@@ -99,7 +107,7 @@ class PostsRepository(private val postsDAO: PostsDAO)
         postsDAO.updatePost(post)
     }
 
-    fun getPostsByDateTime(dateTime: ULong): List<Post> {
+    fun getPostsByDateTime(dateTime: Long): List<Post> {
         return postsDAO.getPostsByDateTime(dateTime)
     }
 

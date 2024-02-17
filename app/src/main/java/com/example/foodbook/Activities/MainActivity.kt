@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodbook.R
 import com.example.foodbook.databinding.ActivityMainBinding
+import com.example.foodbook.postsViewModel
 
 class MainActivity : AppCompatActivity()
 {
@@ -38,12 +40,12 @@ class MainActivity : AppCompatActivity()
             ))
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
+
+            // this is to hide the ation bar
+            supportActionBar?.hide()
         }
 
         onClickListeners()
-
-        // this is to hide the ation bar
-        supportActionBar?.hide()
     }
 
     private fun onClickListeners()

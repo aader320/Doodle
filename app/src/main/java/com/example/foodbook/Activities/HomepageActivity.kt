@@ -2,11 +2,13 @@ package com.example.foodbook.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodbook.Post
 import com.example.foodbook.PostAdapter
 import com.example.foodbook.R
+import com.example.foodbook.postsViewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ListResult
@@ -19,11 +21,19 @@ import kotlinx.coroutines.tasks.await
 class HomepageActivity : AppCompatActivity()
 {
     lateinit var itemPostRecyclerview: RecyclerView
+    private lateinit var postViewModel: postsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+
+        // Initialize the viewmodel
+        try {
+            postViewModel = ViewModelProvider(this).get(postsViewModel::class.java)
+        } catch (e: Exception) {
+            println("ViewModelInit. >>> Error initializing ViewModel: ${e.message}")
+        }
 
         itemPostRecyclerview = findViewById<RecyclerView>(R.id.itemPostRecyclerview)
         val layoutManager = LinearLayoutManager(this)
@@ -73,8 +83,8 @@ class HomepageActivity : AppCompatActivity()
                         var imageTimePosted = metadata.getCustomMetadata("TimeSinceEpoch") ?: "1000"
 
                         // Add the post to the list
-                        posts.add(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toULong())) // Increment completed tasks
-
+                        posts.add(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong())) // Increment completed tasks
+                        postViewModel.insert(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong()))
                     }
                 }
 
@@ -82,7 +92,7 @@ class HomepageActivity : AppCompatActivity()
                 val adapter = PostAdapter(this@HomepageActivity, posts)
                 itemPostRecyclerview.adapter = adapter
                 println(">> TEST USERPOST SIZE: ${posts.size}")
-
+                println(">> TEST VIEWMODEL FLOW SIZE: ${postViewModel.getPostSize().await()}")
             }
             catch (e: Exception) {
                 // Handle exceptions
