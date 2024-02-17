@@ -83,13 +83,13 @@ class HomepageActivity : AppCompatActivity()
                         var imageTimePosted = metadata.getCustomMetadata("TimeSinceEpoch") ?: "1000"
 
                         // Add the post to the list
-                        posts.add(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong())) // Increment completed tasks
+                        //posts.add(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong())) // Increment completed tasks
                         postViewModel.insert(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong()))
                     }
                 }
 
                 // Update UI after all tasks are completed
-                val adapter = PostAdapter(this@HomepageActivity, posts)
+                val adapter = PostAdapter(this@HomepageActivity, postViewModel.getAllPosts().await())
                 itemPostRecyclerview.adapter = adapter
                 println(">> TEST USERPOST SIZE: ${posts.size}")
                 println(">> TEST VIEWMODEL FLOW SIZE: ${postViewModel.getPostSize().await()}")
