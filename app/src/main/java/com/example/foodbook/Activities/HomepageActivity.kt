@@ -16,7 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class HomepageActivity : AppCompatActivity() {
+class HomepageActivity : AppCompatActivity()
+{
     lateinit var itemPostRecyclerview: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -35,7 +36,6 @@ class HomepageActivity : AppCompatActivity() {
     }
 
 
-    // Inside your function
     private fun getAllFilesInMainFolder(folderRef: StorageReference)
     {
         CoroutineScope(Dispatchers.Main).launch {
@@ -74,6 +74,7 @@ class HomepageActivity : AppCompatActivity() {
 
                         // Add the post to the list
                         posts.add(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toULong())) // Increment completed tasks
+
                     }
                 }
 

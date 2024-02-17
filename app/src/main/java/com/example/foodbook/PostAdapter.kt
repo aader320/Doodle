@@ -1,13 +1,24 @@
 package com.example.foodbook
 
+import android.app.Application
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class PostAdapter(private val context: Context, private val Posts: List<Post>)
     : RecyclerView.Adapter<PostAdapter.ViewHolder>()
@@ -17,7 +28,8 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int)
+    {
         val myPost = Posts[position]
         Glide.with(context)
             .load(myPost.imageUrl)
@@ -44,3 +56,65 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>)
         val timeSinceEpochText: TextView = itemView.findViewById(R.id.textViewTime)
     }
 }
+
+
+
+class postsViewModel(application: Application)
+    : AndroidViewModel(application)
+{
+    private var repository: PostsRepository
+    val postsScope = CoroutineScope(Dispatchers.IO)
+
+    init {
+        val dao = PostsDatabase.getinstance(application).postDAO()
+        repository = PostsRepository(dao)
+    }
+
+    fun insert(post: Post) = viewModelScope.launch {
+        repository.insert(post)
+    }
+
+    fun getAllPosts(): Deferred<List<Post>> {
+        // call .await() when calling this function
+        return postsScope.async { repository.allPosts.first() }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
