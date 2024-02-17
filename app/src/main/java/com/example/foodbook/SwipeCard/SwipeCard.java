@@ -43,8 +43,8 @@ public class SwipeCard extends AppCompatActivity {
 
             @Override
             public void onCardSwiped(Direction direction) {
-                Log.d(TAG, String.valueOf(manager.getTopPosition()));
-                Log.d(TAG, String.valueOf(adapter.getItemCount()));
+//                Log.d(TAG, String.valueOf(manager.getTopPosition()));
+//                Log.d(TAG, String.valueOf(adapter.getItemCount()));
 //                Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right){
 //                    Toast.makeText(SwipeCard.this, "Direction Right", Toast.LENGTH_SHORT).show();
@@ -60,11 +60,10 @@ public class SwipeCard extends AppCompatActivity {
                 }
 
                 // Paginating
-                if (manager.getTopPosition() == adapter.getItemCount()-2){
+                if (manager.getTopPosition() == adapter.getItemCount()-2 ){
 //
                     paginate();
                 }
-
             }
 
             @Override

@@ -2,6 +2,8 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/</item>
+        <item>@font/acme</item>
+        <item>@font/allerta</item>
         <item>@font/coiny</item>
         <item>@font/paytone_one</item>
     </array>

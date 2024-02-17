@@ -98,17 +98,17 @@ class SignInActivity : AppCompatActivity() {
             return false
         }
 
-        if(password == "") {
-            binding.textInputLayoutPasswordSignin.error = "This is a required field"
-            binding.textInputLayoutPasswordSignin.errorIconDrawable = null
-            return false
-        }
-
-        if(password.length <= 6) {
-            binding.textInputLayoutPasswordSignin.error = "Password should be at least 6 characters long"
-            binding.textInputLayoutPasswordSignin.errorIconDrawable = null
-            return false
-        }
+//        if(password == "") {
+//            binding.textInputLayoutPasswordSignin.error = "This is a required field"
+//            binding.textInputLayoutPasswordSignin.errorIconDrawable = null
+//            return false
+//        }
+//
+//        if(password.length <= 6) {
+//            binding.textInputLayoutPasswordSignin.error = "Password should be at least 6 characters long"
+//            binding.textInputLayoutPasswordSignin.errorIconDrawable = null
+//            return false
+//        }
 
         return true
     }
