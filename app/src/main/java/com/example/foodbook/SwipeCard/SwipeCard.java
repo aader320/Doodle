@@ -60,7 +60,7 @@ public class SwipeCard extends AppCompatActivity {
                 }
 
                 // Paginating
-                if (manager.getTopPosition() == adapter.getItemCount()-2 ){
+                if (manager.getTopPosition() == adapter.getItemCount()-1 ){
 //
                     paginate();
                 }
@@ -120,10 +120,12 @@ public class SwipeCard extends AppCompatActivity {
 
     private List<ItemModel> addList() {
         List<ItemModel> items = new ArrayList<>();
-        items.add(new ItemModel(R.drawable.download, "jerry","22","gay"));
+        items.add(new ItemModel(R.drawable.download, "jerry","22","dd"));
         items.add(new ItemModel(R.drawable.download, "jerry","22","gay"));
         items.add(new ItemModel(R.drawable.download, "jerry","22","dd"));
-
+        items.add(new ItemModel(R.drawable.download, "jerry","22","xx"));
+        items.add(new ItemModel(R.drawable.download, "jerry","22","gaavay"));
+        items.add(new ItemModel(R.drawable.download, "jerry","22","aa"));
         return items;
     }
 }
