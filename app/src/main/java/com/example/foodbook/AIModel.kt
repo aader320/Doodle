@@ -18,12 +18,12 @@ class AIModel : ViewModel() {
         apiKey = BuildConfig.apiKey
     )
 
-    fun generateText(bitMap : Bitmap) {
+    fun generateText(bitMap : Bitmap, string: String) {
         viewModelScope.launch {
             val inputImage: Bitmap = bitMap
             val inputContent = content {
                 image(inputImage)
-                text("What's this item?")
+                text(string)
             }
 
             val response = generativeModel.generateContent(inputContent)

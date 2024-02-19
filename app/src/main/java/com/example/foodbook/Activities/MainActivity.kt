@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.foodbook.AI
 import com.example.foodbook.R
 import com.example.foodbook.databinding.ActivityMainBinding
 import com.example.foodbook.postsViewModel
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity()
         val signinbutton = findViewById<Button>(R.id.buttonToSignInScreen)
         val uploadbutton = findViewById<Button>(R.id.buttonToUploadScreen)
         val gpsbutton = findViewById<Button>(R.id.gpsButton)
+        val aibutton = findViewById<Button>(R.id.buttonToAITest)
 
         uploadbutton.setOnClickListener {
             val intent = Intent(this, UploadActivity::class.java).apply {
@@ -77,6 +79,12 @@ class MainActivity : AppCompatActivity()
         gpsbutton.setOnClickListener()
         {
             val intent = Intent(this, GpsActivity::class.java)
+            startActivity(intent)
+        }
+
+        aibutton.setOnClickListener()
+        {
+            val intent = Intent(this, AI::class.java)
             startActivity(intent)
         }
     }

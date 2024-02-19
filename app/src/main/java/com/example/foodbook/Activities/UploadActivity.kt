@@ -85,7 +85,7 @@ class UploadActivity : AppCompatActivity()
         }
 
         generateText.setOnClickListener {
-            viewModel.generateText(bitMap)
+            viewModel.generateText(bitMap, "What's this item?")
         }
 
         captureButton.setOnClickListener {
