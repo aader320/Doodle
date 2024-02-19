@@ -85,7 +85,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/login_n"
+        android:id="@+id/buttonSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
@@ -95,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/L1" />
 
     <TextView
-        android:id="@+id/signup_t"
+        android:id="@+id/SignUpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Signup"
