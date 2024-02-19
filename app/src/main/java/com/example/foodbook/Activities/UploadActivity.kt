@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -68,10 +69,10 @@ class UploadActivity : AppCompatActivity()
 
     private fun onClickListeners()
     {
-        val generateText = findViewById<Button>(R.id.buttonGenerateText)
-        val captureButton = findViewById<Button>(R.id.captureButton)
-        val chooseImageButton = findViewById<Button>(R.id.chooseImageButton)
-        val uploadToFirebaseButton = findViewById<Button>(R.id.buttonUploadToFirebase)
+        val generateText = findViewById<ImageButton>(R.id.buttonGenerateText)
+        val captureButton = findViewById<ImageButton>(R.id.captureButton)
+        val chooseImageButton = findViewById<ImageButton>(R.id.chooseImageButton)
+        val uploadToFirebaseButton = findViewById<ImageButton>(R.id.buttonUploadToFirebase)
         val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
         autocompleteFragment.setTypeFilter(TypeFilter.ESTABLISHMENT)
         val resultLatLng = findViewById<TextView>(R.id.resultText)
