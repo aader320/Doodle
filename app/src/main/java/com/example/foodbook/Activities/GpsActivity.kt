@@ -35,7 +35,7 @@ class GpsActivity : AppCompatActivity() {
         if (mapIntent.resolveActivity(packageManager) != null) {
             startActivity(mapIntent)
         } else {
-            val output = findViewById<TextView>(R.id.resultText)
+            val output = findViewById<TextView>(R.id.LocationLatLongTextView)
             output.text = "Please Install Google Maps"
         }
     }

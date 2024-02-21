@@ -37,14 +37,22 @@ import java.io.InputStream
 
 class UploadActivity : AppCompatActivity()
 {
+    // upload items
     private lateinit var imageView: ImageView
     private lateinit var textView: TextView
     private lateinit var viewModel: AIModel
     private lateinit var bitMap: Bitmap     // store this to firebase
     private lateinit var userEmail: String
+    private var priceRange: Int = 0
 
     private val REQUEST_IMAGE_CAPTURE = 101
     private val PICK_IMAGE_REQUEST = 102
+
+    private lateinit var progressbar: ProgressBar
+    private lateinit var captiontext: TextInputLayout
+    private lateinit var loactionLatLong: TextView
+    private lateinit var locationName: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -53,6 +61,11 @@ class UploadActivity : AppCompatActivity()
 
         imageView = findViewById(R.id.imageView)
         textView = findViewById(R.id.geminiPrompt)
+        progressbar = findViewById<ProgressBar>(R.id.uploadProgressBar)
+        captiontext = findViewById<TextInputLayout>(R.id.postCaptionTextInputLayout)
+        loactionLatLong = findViewById<TextView>(R.id.LocationLatLongTextView)
+        locationName = findViewById<TextView>(R.id.LocationNameTextView)
+
 
         viewModel = ViewModelProvider(this).get(AIModel::class.java)
         viewModel.textResult.observe(this, Observer { result ->
@@ -67,6 +80,11 @@ class UploadActivity : AppCompatActivity()
         userEmail = intent.getStringExtra("USER_EMAIL").toString()
     }
 
+    private fun clearImageButtons()
+    {
+
+    }
+
     private fun onClickListeners()
     {
         val generateText = findViewById<ImageButton>(R.id.buttonGenerateText)
@@ -75,9 +93,18 @@ class UploadActivity : AppCompatActivity()
         val uploadToFirebaseButton = findViewById<ImageButton>(R.id.buttonUploadToFirebase)
         val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
         autocompleteFragment.setTypeFilter(TypeFilter.ESTABLISHMENT)
-        val resultLatLng = findViewById<TextView>(R.id.resultText)
-        val resultLocation = findViewById<TextView>(R.id.resultName)
+        val resultLatLng = findViewById<TextView>(R.id.LocationLatLongTextView)
+        val resultLocation = findViewById<TextView>(R.id.LocationNameTextView)
         val homepagebutton = findViewById<Button>(R.id.homepageButton)
+        val priceButton1 = findViewById<ImageButton>(R.id.price1)
+        val priceButton2 = findViewById<ImageButton>(R.id.price2)
+        val priceButton3 = findViewById<ImageButton>(R.id.price3)
+
+        val clearImageButtons: () -> Unit = {
+            priceButton1.setImageResource(R.drawable.normal_baseline_attach_money_24)
+            priceButton2.setImageResource(R.drawable.normal_baseline_attach_money_24)
+            priceButton3.setImageResource(R.drawable.normal_baseline_attach_money_24)
+        }
 
         homepagebutton.setOnClickListener {
             val intent = Intent(this, HomepageActivity::class.java)
@@ -101,6 +128,27 @@ class UploadActivity : AppCompatActivity()
             val filepathString: String = "uploads/" + userEmail
             val lStorage: StorageReference = FirebaseStorage.getInstance().getReference(filepathString)
             UploadFile(lStorage)
+        }
+
+        priceButton1.setOnClickListener {
+            priceRange = 1
+            clearImageButtons()
+            priceButton1.setImageResource(R.drawable.selected_baseline_attach_money_24)
+        }
+
+        priceButton2.setOnClickListener {
+            priceRange = 2
+            clearImageButtons()
+            priceButton1.setImageResource(R.drawable.selected_baseline_attach_money_24)
+            priceButton2.setImageResource(R.drawable.selected_baseline_attach_money_24)
+        }
+
+        priceButton3.setOnClickListener {
+            priceRange = 3
+            clearImageButtons()
+            priceButton1.setImageResource(R.drawable.selected_baseline_attach_money_24)
+            priceButton2.setImageResource(R.drawable.selected_baseline_attach_money_24)
+            priceButton3.setImageResource(R.drawable.selected_baseline_attach_money_24)
         }
 
         autocompleteFragment.setLocationBias(RectangularBounds.newInstance(LatLng(-33.0, 151.0), LatLng(-33.0, 152.0)))
@@ -166,19 +214,22 @@ class UploadActivity : AppCompatActivity()
 
     public fun UploadFile(Storage: StorageReference)
     {
-        val progressbar = findViewById<ProgressBar>(R.id.uploadProgressBar)
-        val captiontext = findViewById<TextInputLayout>(R.id.postCaptionTextInputLayout)
+        val LocationresultLatLang: String = loactionLatLong.text.toString()
+        val LocationresultName: String = locationName.text.toString()
         val caption:String = captiontext.editText!!.text.toString()
-        val resultLatLng = findViewById<TextView>(R.id.resultText)
-        val GPSresult:String = resultLatLng.text.toString()
 
         if(caption.isEmpty()) {
             Toast.makeText(this, "Please Input a caption!", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if(GPSresult.isEmpty()) {
+        if(LocationresultLatLang.isEmpty() or LocationresultName.isEmpty()) {
             Toast.makeText(this, "Please choose a location!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if(priceRange == 0)  {
+            Toast.makeText(this, "Please select a price range!", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -193,7 +244,9 @@ class UploadActivity : AppCompatActivity()
         val metadata = storageMetadata {
             contentType = "image/jpg"
             setCustomMetadata("Caption", caption)
-            setCustomMetadata("Location", GPSresult)
+            setCustomMetadata("Location", LocationresultLatLang)
+            setCustomMetadata("Location Name", LocationresultName)
+            setCustomMetadata("Price Range", priceRange.toString())
             setCustomMetadata("User_Email", userEmail)
             setCustomMetadata("TimeSinceEpoch", System.currentTimeMillis().toString())
         }
