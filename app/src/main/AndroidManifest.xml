@@ -33,9 +33,7 @@
         <activity
             android:name=".item_profile"
             android:exported="true" />
-        <activity
-            android:name=".Map"
-            android:exported="true" />
+
         <activity
             android:name=".AI"
             android:exported="true" />
@@ -47,7 +45,7 @@
             android:exported="true" />
         <activity
             android:name=".Activities.HomepageActivity"
-            android:exported="false" />
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -28,6 +28,8 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
     {
         // this function handles each post click within the recyclerview HAN
         println("${post.caption} is clicked")
+
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?)
