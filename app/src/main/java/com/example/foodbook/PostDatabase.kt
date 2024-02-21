@@ -6,6 +6,7 @@ import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Entity
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
@@ -32,14 +33,20 @@ data class Post (
     val userEmail: String,
 
     @ColumnInfo(name = "dateTime")
-    val dateTime: Long
+    val dateTime: Long,
+
+    @ColumnInfo(name = "location_name")
+    val location_name: String,
+
+    @ColumnInfo(name = "price_range")
+    val price_range: String
 )
 
 
 @Dao
 interface PostsDAO
 {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPost(post: Post)
 
     @Update
@@ -53,10 +60,13 @@ interface PostsDAO
 
     @Query("SELECT * FROM Posts_Table WHERE userEmail = :inputUserEmail ORDER BY post_id ASC")
     fun getPostsByUser(inputUserEmail : String): List<Post>
+
+    @Query("DELETE FROM Posts_Table")
+    suspend fun deleteAll()
 }
 
 
-@Database(entities = [Post::class], version = 1)
+@Database(entities = [Post::class], version = 2)
 abstract class PostDatabase : RoomDatabase()
 {
     abstract fun postDAO(): PostsDAO
@@ -70,17 +80,15 @@ abstract class PostDatabase : RoomDatabase()
 
         fun getInstance(context: Context): PostDatabase
         {
-            println("I AM INSIDE THE GETINSTANCE OF MY POST DATABASEEEEE")
             return INSTANCE ?: synchronized(this)
             {
-                println("I AM CREATING A NEW INSTANCE OF MY POST DATABASEEEEE")
-
                 try {
                     val instance = Room.databaseBuilder(
                         context.applicationContext,
                         PostDatabase::class.java,
                         DATABASE_NAME
-                    ).build()
+                    ).fallbackToDestructiveMigration()
+                        .build()
 
                     INSTANCE = instance
                     instance
@@ -113,5 +121,9 @@ class PostsRepository(private val postsDAO: PostsDAO)
 
     fun getPostsByUser(userEmail: String): List<Post> {
         return postsDAO.getPostsByUser(userEmail)
+    }
+
+    suspend fun clearDatabase() {
+        postsDAO.deleteAll()
     }
 }

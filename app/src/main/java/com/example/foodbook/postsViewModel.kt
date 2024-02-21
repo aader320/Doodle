@@ -57,6 +57,8 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>, p
         val usernameText: TextView = itemView.findViewById(R.id.textViewUsername)
         val locationText: TextView = itemView.findViewById(R.id.textViewLocation)
         val timeSinceEpochText: TextView = itemView.findViewById(R.id.textViewTime)
+        val money_price: TextView = itemView.findViewById(R.id.textViewMoney)
+        val locationnameText: TextView = itemView.findViewById(R.id.textViewLocationName)
 
         fun bind(post: Post)
         {
@@ -64,6 +66,8 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>, p
             usernameText.text       = post.userEmail
             timeSinceEpochText.text = post.dateTime.toString()
             locationText.text       = post.location
+            locationnameText.text   = post.location_name
+            money_price.text        = post.price_range
 
             itemView.setOnClickListener {
                 listener.onPostClick(post)
@@ -96,6 +100,10 @@ class postsViewModel(appl: Application)
     fun getAllPosts(): Deferred<List<Post>> {
         // call .await() when calling this function
         return postsScope.async { repository.allPosts.first() }
+    }
+
+    fun clearAllPosts() {
+        postsScope.async { repository.clearDatabase() }
     }
 }
 

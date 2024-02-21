@@ -245,8 +245,8 @@ class UploadActivity : AppCompatActivity()
             contentType = "image/jpg"
             setCustomMetadata("Caption", caption)
             setCustomMetadata("Location", LocationresultLatLang)
-            setCustomMetadata("Location Name", LocationresultName)
-            setCustomMetadata("Price Range", priceRange.toString())
+            setCustomMetadata("Location_Name", LocationresultName)
+            setCustomMetadata("Price_Range", priceRange.toString())
             setCustomMetadata("User_Email", userEmail)
             setCustomMetadata("TimeSinceEpoch", System.currentTimeMillis().toString())
         }

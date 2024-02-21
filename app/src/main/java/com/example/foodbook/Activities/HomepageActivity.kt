@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.ColumnInfo
 import com.example.foodbook.OnPostClickListener
 import com.example.foodbook.Post
 import com.example.foodbook.PostAdapter
@@ -55,6 +56,8 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
 
     private fun getAllFilesInMainFolder(folderRef: StorageReference)
     {
+        postViewModel.clearAllPosts()
+
         CoroutineScope(Dispatchers.Main).launch {
             val posts = mutableListOf<Post>()
 
@@ -62,8 +65,6 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
             {
                 // Await the entire list operation
                 val listResult = folderRef.listAll().await()
-
-                val subfolderTasks = mutableListOf<Task<ListResult>>()
 
                 // Iterate through each subfolder
                 listResult.prefixes.forEach { subfolder ->
@@ -86,12 +87,14 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
                         var imageDownloadURL = downloadUrlTask.toString()
                         var imageCaption = metadata.getCustomMetadata("Caption") ?: "No caption"
                         var imageLocation = metadata.getCustomMetadata("Location") ?: "No location"
+                        var imageLocationName = metadata.getCustomMetadata("Location_Name") ?: "No location"
                         var imageUserEmail = metadata.getCustomMetadata("User_Email") ?: "No user email"
                         var imageTimePosted = metadata.getCustomMetadata("TimeSinceEpoch") ?: "1000"
+                        var imagePriceRange = metadata.getCustomMetadata("Price_Range") ?: "1"
 
                         // Add the post to the list
                         //posts.add(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong())) // Increment completed tasks
-                        postViewModel.insert(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong()))
+                        postViewModel.insert(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong(), location_name = imageLocationName, price_range = imagePriceRange))
                     }
                 }
 
