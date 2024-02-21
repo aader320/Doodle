@@ -19,13 +19,15 @@ class item_profile : Fragment() {
 
             val buttonopen = view.findViewById<Button>(R.id.loc)
             buttonopen.setOnClickListener {
-//            openFragment()
+//            openFragment() // need to uncomment it          ZX
             }
             return view
         }
 
+    //ZX
+
 //    private fun openFragment() {
-//        val fragmentB = MapsFragment()
+//        val fragmentB = MapsFragment() // need to change to ur mapfragment
 //        val transaction = childFragmentManager.beginTransaction()
 //        transaction.replace(R.id.fragment_map, fragmentB)
 //        transaction.addToBackStack(null) // Optional: Add to back stack if needed
