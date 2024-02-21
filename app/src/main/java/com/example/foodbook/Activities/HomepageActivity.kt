@@ -2,6 +2,7 @@ package com.example.foodbook.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.example.foodbook.OnPostClickListener
 import com.example.foodbook.Post
 import com.example.foodbook.PostAdapter
 import com.example.foodbook.R
+import com.example.foodbook.item_profile
 import com.example.foodbook.postsViewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
@@ -25,10 +27,20 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
     lateinit var itemPostRecyclerview: RecyclerView
     private lateinit var postViewModel: postsViewModel
 
+
+    private fun replaceFragment(fragment: Fragment) {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.item_profile_container, fragment)
+        .addToBackStack(null)
+        .commit()
+    }
+
     override fun onPostClick(post: Post)
     {
         // this function handles each post click within the recyclerview HAN
         println("${post.caption} is clicked")
+        replaceFragment(item_profile())
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?)

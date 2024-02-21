@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".Activities.HomepageActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/item_profile_container"
+        android:layout_width="412dp"
+        android:layout_height="913dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:elevation="20dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemPostRecyclerview"
         android:layout_width="409dp"
