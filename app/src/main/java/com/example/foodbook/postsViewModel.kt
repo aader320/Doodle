@@ -18,7 +18,15 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class PostAdapter(private val context: Context, private val Posts: List<Post>)
+
+
+interface OnPostClickListener {
+    fun onPostClick(post: Post)
+}
+
+
+
+class PostAdapter(private val context: Context, private val Posts: List<Post>, private val listener: OnPostClickListener)
     : RecyclerView.Adapter<PostAdapter.ViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.ViewHolder {
@@ -35,23 +43,32 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>)
             .error(R.drawable.ic_showpassword)
             .into(holder.imageView)
 
-        holder.captionText.text = myPost.caption
-        holder.usernameText.text = myPost.userEmail
-        holder.timeSinceEpochText.text = myPost.dateTime.toString()
-        holder.locationText.text = myPost.location
+        holder.bind(myPost)
     }
 
     override fun getItemCount(): Int {
         return Posts.size
     }
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
     {
         val imageView: ImageView = itemView.findViewById(R.id.imageViewPost)
         val captionText: TextView = itemView.findViewById(R.id.textViewCaption)
         val usernameText: TextView = itemView.findViewById(R.id.textViewUsername)
         val locationText: TextView = itemView.findViewById(R.id.textViewLocation)
         val timeSinceEpochText: TextView = itemView.findViewById(R.id.textViewTime)
+
+        fun bind(post: Post)
+        {
+            captionText.text        = post.caption
+            usernameText.text       = post.userEmail
+            timeSinceEpochText.text = post.dateTime.toString()
+            locationText.text       = post.location
+
+            itemView.setOnClickListener {
+                listener.onPostClick(post)
+            }
+        }
     }
 }
 

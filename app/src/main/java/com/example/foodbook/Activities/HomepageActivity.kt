@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodbook.OnPostClickListener
 import com.example.foodbook.Post
 import com.example.foodbook.PostAdapter
 import com.example.foodbook.R
@@ -18,10 +19,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class HomepageActivity : AppCompatActivity()
+class HomepageActivity : AppCompatActivity(), OnPostClickListener
 {
     lateinit var itemPostRecyclerview: RecyclerView
     private lateinit var postViewModel: postsViewModel
+
+    override fun onPostClick(post: Post)
+    {
+        // this function handles each post click within the recyclerview HAN
+        println("${post.caption} is clicked")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -89,7 +96,7 @@ class HomepageActivity : AppCompatActivity()
                 }
 
                 // Update UI after all tasks are completed
-                val adapter = PostAdapter(this@HomepageActivity, postViewModel.getAllPosts().await())
+                val adapter = PostAdapter(this@HomepageActivity, postViewModel.getAllPosts().await(), this@HomepageActivity)
                 itemPostRecyclerview.adapter = adapter
                 println(">> TEST USERPOST SIZE: ${posts.size}")
                 println(">> TEST VIEWMODEL FLOW SIZE: ${postViewModel.getPostSize().await()}")
