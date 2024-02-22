@@ -28,12 +28,11 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY" />
+            android:value="AIzaSyAiaPMS-yV8eKDHSLipnAypwshfVd0kWogku" />
 
         <activity
             android:name=".item_profile"
             android:exported="true" />
-
         <activity
             android:name=".AI"
             android:exported="true" />
