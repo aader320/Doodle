@@ -131,6 +131,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_map"
+        android:name="com.example.foodbook.MapsFragment"
         android:layout_width="410dp"
         android:layout_height="914dp"
         android:elevation="20dp"

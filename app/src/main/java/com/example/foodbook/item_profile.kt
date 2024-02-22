@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.SupportMapFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.Navigation.findNavController
 
 class item_profile : Fragment() {
     override fun onCreateView(
@@ -25,15 +28,17 @@ class item_profile : Fragment() {
         }
 
     //ZX
-
-//    private fun openFragment() {
-//        val fragmentB = MapsFragment() // need to change to ur mapfragment
-//        val transaction = childFragmentManager.beginTransaction()
-//        transaction.replace(R.id.fragment_map, fragmentB)
-//        transaction.addToBackStack(null) // Optional: Add to back stack if needed
-//        transaction.commit()
-//    }
-
+//==========================================================================================
+    private fun openFragment() {
+        val fragmentB = fragmentManager?.findFragmentById(R.id.fragment_map)
+        val transaction = childFragmentManager.beginTransaction()
+        if (fragmentB != null) {
+            transaction.replace(R.id.fragment_map, fragmentB)
+        }
+        transaction.addToBackStack(null) // Optional: Add to back stack if needed
+        transaction.commit()
+    }
+//==========================================================================================
 }
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
