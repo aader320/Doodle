@@ -17,7 +17,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 interface OnPostClickListener {
@@ -55,19 +57,26 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>, p
         val imageView: ImageView = itemView.findViewById(R.id.imageViewPost)
         val captionText: TextView = itemView.findViewById(R.id.textViewCaption)
         val usernameText: TextView = itemView.findViewById(R.id.textViewUsername)
-        val locationText: TextView = itemView.findViewById(R.id.textViewLocation)
+        //val locationText: TextView = itemView.findViewById(R.id.textViewLocation)
         val timeSinceEpochText: TextView = itemView.findViewById(R.id.textViewTime)
         val money_price: TextView = itemView.findViewById(R.id.textViewMoney)
         val locationnameText: TextView = itemView.findViewById(R.id.textViewLocationName)
+
+        private fun convertEpochToDateTime(epochTime: Long): String
+        {
+            val date = Date(epochTime)
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            return sdf.format(date)
+        }
 
         fun bind(post: Post)
         {
             captionText.text        = post.caption
             usernameText.text       = post.userEmail
-            timeSinceEpochText.text = post.dateTime.toString()
-            locationText.text       = post.location
+            //locationText.text       = post.location
             locationnameText.text   = post.location_name
-            money_price.text        = post.price_range
+            money_price.text        = "Cost: " + post.price_range
+            timeSinceEpochText.text = convertEpochToDateTime(post.dateTime)
 
             itemView.setOnClickListener {
                 listener.onPostClick(post)

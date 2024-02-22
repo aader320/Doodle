@@ -4,11 +4,13 @@ import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -39,7 +41,7 @@ class UploadActivity : AppCompatActivity()
 {
     // upload items
     private lateinit var imageView: ImageView
-    private lateinit var textView: TextView
+    private lateinit var GeminitextView: TextView
     private lateinit var viewModel: AIModel
     private lateinit var bitMap: Bitmap     // store this to firebase
     private lateinit var userEmail: String
@@ -60,7 +62,7 @@ class UploadActivity : AppCompatActivity()
         setContentView(R.layout.activity_upload)
 
         imageView = findViewById(R.id.imageView)
-        textView = findViewById(R.id.geminiPrompt)
+        GeminitextView = findViewById(R.id.geminiPrompt)
         progressbar = findViewById<ProgressBar>(R.id.uploadProgressBar)
         captiontext = findViewById<TextInputLayout>(R.id.postCaptionTextInputLayout)
         loactionLatLong = findViewById<TextView>(R.id.LocationLatLongTextView)
@@ -69,7 +71,7 @@ class UploadActivity : AppCompatActivity()
 
         viewModel = ViewModelProvider(this).get(AIModel::class.java)
         viewModel.textResult.observe(this, Observer { result ->
-            textView.text = result
+            GeminitextView.text = result
         })
 
         onClickListeners()
@@ -80,10 +82,6 @@ class UploadActivity : AppCompatActivity()
         userEmail = intent.getStringExtra("USER_EMAIL").toString()
     }
 
-    private fun clearImageButtons()
-    {
-
-    }
 
     private fun onClickListeners()
     {
@@ -99,6 +97,9 @@ class UploadActivity : AppCompatActivity()
         val priceButton1 = findViewById<ImageButton>(R.id.price1)
         val priceButton2 = findViewById<ImageButton>(R.id.price2)
         val priceButton3 = findViewById<ImageButton>(R.id.price3)
+        val rotateleftbutton = findViewById<Button>(R.id.rotateLeftButton)
+        val rotaterightbutton = findViewById<Button>(R.id.rotateRightButton)
+        var rotation = 0.0f
 
         val clearImageButtons: () -> Unit = {
             priceButton1.setImageResource(R.drawable.normal_baseline_attach_money_24)
@@ -113,6 +114,7 @@ class UploadActivity : AppCompatActivity()
 
         generateText.setOnClickListener {
             viewModel.generateText(bitMap, "What's this item?")
+            GeminitextView.visibility = View.VISIBLE
         }
 
         captureButton.setOnClickListener {
@@ -121,6 +123,16 @@ class UploadActivity : AppCompatActivity()
 
         chooseImageButton.setOnClickListener {
             openFileChooser()
+        }
+
+        rotateleftbutton.setOnClickListener {
+            rotation -= 90.0f
+            imageView.rotation = rotation
+        }
+
+        rotaterightbutton.setOnClickListener {
+            rotation += 90.0f
+            imageView.rotation = rotation
         }
 
         uploadToFirebaseButton.setOnClickListener {
