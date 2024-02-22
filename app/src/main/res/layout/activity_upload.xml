@@ -4,206 +4,214 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C0DD84"
+    android:background="#FFFFFF"
     tools:context=".Activities.UploadActivity">
 
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="357dp"
+        android:layout_height="360dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/geminiPrompt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/autocomplete_fragment" />
+
+    <TextView
+        android:id="@+id/geminiPrompt"
+        android:layout_width="359dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/textview_border"
+        android:text="Gemini Prompt Result: "
+        app:layout_constraintBottom_toTopOf="@+id/DollarSignCountersLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ProgressBar
+        android:id="@+id/uploadProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/homepageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postCaptionTextInputLayout" />
+
+    <fragment
+        android:id="@+id/autocomplete_fragment"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/LocationLatLongTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="18dp"
+        android:text="Location LAT/LONG"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/LocationNameTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/LocationNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="18dp"
+        android:text="Location Name"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/homepageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="147dp"
+        android:text="Homepage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadProgressBar" />
+
+    <ImageButton
+        android:id="@+id/captureButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:tooltipText="Take Picture"
+        app:layout_constraintBottom_toTopOf="@+id/postCaptionTextInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DollarSignCountersLinearLayout"
+        app:srcCompat="@drawable/photo_camera" />
+
+    <ImageButton
+        android:id="@+id/chooseImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:src="@drawable/filter"
+        android:tooltipText="Choose Picture from File"
+        app:layout_constraintBottom_toTopOf="@+id/postCaptionTextInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/buttonGenerateText"
+        app:layout_constraintStart_toEndOf="@+id/captureButton"
+        app:layout_constraintTop_toBottomOf="@+id/DollarSignCountersLinearLayout" />
+
+    <ImageButton
+        android:id="@+id/buttonGenerateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:tooltipText="Gemini Prompt"
+        app:layout_constraintBottom_toTopOf="@+id/postCaptionTextInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUploadToFirebase"
+        app:layout_constraintTop_toBottomOf="@+id/DollarSignCountersLinearLayout"
+        app:srcCompat="@drawable/contract_edit" />
+
+    <ImageButton
+        android:id="@+id/buttonUploadToFirebase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:tooltipText="Upload Post"
+        app:layout_constraintBottom_toTopOf="@+id/postCaptionTextInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DollarSignCountersLinearLayout"
+        app:srcCompat="@drawable/upload_2" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/postCaptionTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="80dp"
+        android:background="#BFDC83"
+        app:layout_constraintBottom_toTopOf="@+id/homepageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#BFDC83"
+            android:hint="Post Your Caption" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="357dp"
-                android:layout_height="360dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/LocationLatLongTextView" />
+    <LinearLayout
+        android:id="@+id/DollarSignCountersLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/geminiPrompt">
 
-            <TextView
-                android:id="@+id/geminiPrompt"
-                android:layout_width="359dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
-                android:text="Gemini Prompt Result: "
-                android:background="@drawable/textview_border"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.48"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <TextView
+            android:id="@+id/moneyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:text="Price Range"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="41dp" />
 
+        <ImageButton
+            android:id="@+id/price1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            app:srcCompat="@drawable/normal_baseline_attach_money_24" />
 
-            <ProgressBar
-                android:id="@+id/uploadProgressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/postCaptionTextInputLayout" />
+        <ImageButton
+            android:id="@+id/price2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            app:srcCompat="@drawable/normal_baseline_attach_money_24" />
 
-            <fragment
-                android:id="@+id/autocomplete_fragment"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-<!--                app:layout_constraintVertical_bias="0.01"-->
-<!--                app:layout_constraintTop_toBottomOf="parent"-->
-<!--                app:layout_constraintBottom_toTopOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-
-            <TextView
-                android:id="@+id/LocationLatLongTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="Location LAT/LONG"
-                app:layout_constraintEnd_toStartOf="@+id/LocationNameTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/autocomplete_fragment" />
-
-            <TextView
-                android:id="@+id/LocationNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location Name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/LocationLatLongTextView"
-                app:layout_constraintTop_toBottomOf="@+id/autocomplete_fragment"
-                tools:layout_editor_absoluteY="41dp" />
-
-            <Button
-                android:id="@+id/homepageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginTop="18dp"
-                android:text="Homepage"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/uploadProgressBar" />
-
-            <ImageButton
-                android:id="@+id/captureButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:tooltipText="Take Picture"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/DollarSignCountersLinearLayout"
-                app:srcCompat="@drawable/photo_camera" />
-
-            <ImageButton
-                android:id="@+id/chooseImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="52dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:src="@drawable/filter"
-                android:tooltipText="Choose Picture from File"
-                app:layout_constraintStart_toEndOf="@+id/captureButton"
-                app:layout_constraintTop_toBottomOf="@+id/DollarSignCountersLinearLayout" />
-
-            <ImageButton
-                android:id="@+id/buttonGenerateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="56dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:tooltipText="Gemini Prompt"
-                app:layout_constraintStart_toEndOf="@+id/chooseImageButton"
-                app:layout_constraintTop_toBottomOf="@+id/DollarSignCountersLinearLayout"
-                app:srcCompat="@drawable/contract_edit" />
-
-            <ImageButton
-                android:id="@+id/buttonUploadToFirebase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="52dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:tooltipText="Upload Post"
-                app:layout_constraintStart_toEndOf="@+id/buttonGenerateText"
-                app:layout_constraintTop_toBottomOf="@+id/DollarSignCountersLinearLayout"
-                app:srcCompat="@drawable/upload_2" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/postCaptionTextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="@drawable/textview_border"
-                app:layout_constraintTop_toBottomOf="@+id/chooseImageButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.904"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_edittext"
-                    android:hint="Post Your Caption" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/DollarSignCountersLinearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/geminiPrompt">
-
-                <TextView
-                    android:id="@+id/moneyTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price Range"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:layout_editor_absoluteY="41dp" />
-
-                <ImageButton
-                    android:id="@+id/price1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    app:srcCompat="@drawable/normal_baseline_attach_money_24" />
-                <ImageButton
-                    android:id="@+id/price2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    app:srcCompat="@drawable/normal_baseline_attach_money_24" />
-                <ImageButton
-                    android:id="@+id/price3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    app:srcCompat="@drawable/normal_baseline_attach_money_24" />
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+        <ImageButton
+            android:id="@+id/price3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            app:srcCompat="@drawable/normal_baseline_attach_money_24" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
