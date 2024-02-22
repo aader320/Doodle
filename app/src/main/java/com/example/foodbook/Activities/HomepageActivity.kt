@@ -1,12 +1,16 @@
 package com.example.foodbook.Activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.ColumnInfo
+import com.bumptech.glide.Glide
 import com.example.foodbook.OnPostClickListener
 import com.example.foodbook.Post
 import com.example.foodbook.PostAdapter
@@ -28,19 +32,19 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
     private lateinit var postViewModel: postsViewModel
 
 
-    private fun replaceFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.item_profile_container, fragment)
-        .addToBackStack(null)
-        .commit()
+    private fun replaceFragment(fragment: Fragment)
+    {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.item_profile_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onPostClick(post: Post)
     {
         // this function handles each post click within the recyclerview HAN
         println("${post.caption} is clicked")
-        replaceFragment(item_profile())
-
+        replaceFragment(item_profile(post))
     }
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -63,6 +67,23 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
         val lStorage: StorageReference = FirebaseStorage.getInstance().getReference(filepathString)
 
         getAllFilesInMainFolder(lStorage)
+
+        onclicklisteners()
+    }
+
+
+    private fun onclicklisteners()
+    {
+        val toUploadFromHomepageButton = findViewById<Button>(R.id.toUploadFromHomepageButton)
+
+
+        toUploadFromHomepageButton.setOnClickListener()
+        {
+            val intent = Intent(this, UploadActivity::class.java).apply {
+                putExtra("USER_EMAIL", intent.getStringExtra("USER_EMAIL").toString())
+            }
+            startActivity(intent)
+        }
     }
 
 
