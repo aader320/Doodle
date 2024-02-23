@@ -34,7 +34,7 @@ class item_profile(private val mypost: Post) : Fragment()
 
         buttonopen.setOnClickListener {
 //            openFragment() // need to uncomment it          ZX
-            openGoogleMaps()
+            openGoogleMaps(mypost.location)
         }
         return view
     }
@@ -52,9 +52,9 @@ class item_profile(private val mypost: Post) : Fragment()
     //    transaction.commit()
     //}
 //==========================================================================================
-    private fun openGoogleMaps()
+    private fun openGoogleMaps(latlng: String)
     {
-        val gmmIntentUri: Uri = Uri.parse("geo:0,0?q=${"Bugis"}")
+        val gmmIntentUri: Uri = Uri.parse("geo:0,0?q=${latlng}")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
         if (mapIntent.resolveActivity(requireActivity().packageManager) != null) {
