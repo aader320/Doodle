@@ -54,6 +54,7 @@ class UploadActivity : AppCompatActivity()
     private lateinit var captiontext: TextInputLayout
     private lateinit var loactionLatLong: TextView
     private lateinit var locationName: TextView
+    private var rotation = 0.0f
 
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -99,7 +100,6 @@ class UploadActivity : AppCompatActivity()
         val priceButton3 = findViewById<ImageButton>(R.id.price3)
         val rotateleftbutton = findViewById<Button>(R.id.rotateLeftButton)
         val rotaterightbutton = findViewById<Button>(R.id.rotateRightButton)
-        var rotation = 0.0f
 
         val clearImageButtons: () -> Unit = {
             priceButton1.setImageResource(R.drawable.normal_baseline_attach_money_24)
@@ -224,6 +224,14 @@ class UploadActivity : AppCompatActivity()
         }
     }
 
+    // helper fun
+    private fun rotateBitmap(bitmap: Bitmap, degrees: Float): Bitmap
+    {
+        val matrix = Matrix()
+        matrix.postRotate(degrees)
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+
     public fun UploadFile(Storage: StorageReference)
     {
         val LocationresultLatLang: String = loactionLatLong.text.toString()
@@ -251,7 +259,10 @@ class UploadActivity : AppCompatActivity()
         imageView.isDrawingCacheEnabled = true
         imageView.buildDrawingCache()
         val baos = ByteArrayOutputStream()
-        bitMap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val rotatedbitmap = rotateBitmap(bitMap, rotation)
+
+        rotatedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        //bitMap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
 
         val metadata = storageMetadata {
             contentType = "image/jpg"
