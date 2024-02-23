@@ -1,6 +1,7 @@
 package com.example.foodbook
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.SupportMapFragment
-import androidx.fragment.app.FragmentActivity
-import androidx.navigation.Navigation.findNavController
-import com.bumptech.glide.Glide
+import com.google.android.material.textfield.TextInputEditText
+
+import com.example.foodbook.R
 
 class item_profile(private val mypost: Post) : Fragment()
 {
@@ -37,6 +37,7 @@ class item_profile(private val mypost: Post) : Fragment()
 
         buttonopen.setOnClickListener {
 //            openFragment() // need to uncomment it          ZX
+            openGoogleMaps()
         }
         return view
     }
@@ -54,6 +55,14 @@ class item_profile(private val mypost: Post) : Fragment()
     //    transaction.commit()
     //}
 //==========================================================================================
+    private fun openGoogleMaps()
+    {
+        val gmmIntentUri: Uri = Uri.parse("geo:0,0?q=${"Bugis"}")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        startActivity(mapIntent)
+    }
+
 }
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
