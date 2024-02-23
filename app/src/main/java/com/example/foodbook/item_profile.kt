@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 
 class item_profile(private val mypost: Post) : Fragment()
 {
@@ -23,11 +24,11 @@ class item_profile(private val mypost: Post) : Fragment()
         val itemimage = view.findViewById<ImageView>(R.id.ItemImage)
         val titleTextView = view.findViewById<TextView>(R.id.Title)
 
-//        Glide.with(this)
-//            .load(mypost.imageUrl)
-//            .placeholder((R.drawable.logo))
-//            .error(R.drawable.ic_showpassword)
-//            .into(itemimage)
+        Glide.with(this)
+            .load(mypost.imageUrl)
+            .placeholder((R.drawable.logo))
+            .error(R.drawable.ic_showpassword)
+            .into(itemimage)
 
         println(">> location name: ${mypost.location_name}")
         titleTextView.text = mypost.location_name
@@ -36,6 +37,14 @@ class item_profile(private val mypost: Post) : Fragment()
 //            openFragment() // need to uncomment it          ZX
             openGoogleMaps(mypost.location)
         }
+
+        view.findViewById<Button>(R.id.AI).setOnClickListener {
+            val activity = requireActivity()
+            val intent = Intent(activity, AI::class.java)
+            intent.putExtra("bitmapUri", mypost.imageUrl)
+            startActivity(intent)
+        }
+
         return view
     }
 
