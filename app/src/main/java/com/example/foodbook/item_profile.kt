@@ -10,9 +10,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.google.android.material.textfield.TextInputEditText
-
-import com.example.foodbook.R
 
 class item_profile(private val mypost: Post) : Fragment()
 {
@@ -21,7 +18,7 @@ class item_profile(private val mypost: Post) : Fragment()
     {
 //            return inflater.inflate(R.layout.activity_item_profile, container, false)
 
-        val view: View = inflater.inflate(R.layout.activity_item_profile, container, false)
+        val view: View = inflater.inflate(R.layout.activity_item_page, container, false)
         val buttonopen = view.findViewById<Button>(R.id.loc)
         val itemimage = view.findViewById<ImageView>(R.id.ItemImage)
         val titleTextView = view.findViewById<TextView>(R.id.Title)
