@@ -60,7 +60,13 @@ class item_profile(private val mypost: Post) : Fragment()
         val gmmIntentUri: Uri = Uri.parse("geo:0,0?q=${"Bugis"}")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
-        startActivity(mapIntent)
+        if (mapIntent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(mapIntent)
+        } else {
+            // If Google Maps app is not installed, open in a web browser
+            val webMapIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://maps.google.com/?q=your+location"))
+            startActivity(webMapIntent)
+        }
     }
 
 }
