@@ -32,17 +32,17 @@ class MapsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_maps, container, false)
+        //val view = inflater.inflate(R.layout.fragment_maps, container, false)
 
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync { googleMap ->
+        //val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        //mapFragment.getMapAsync { googleMap ->
             // Customize the map if needed
             // For example:
             // googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             // googleMap.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("Marker"))
-        }
+        //}
 
         return view
     }

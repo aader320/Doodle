@@ -43,16 +43,16 @@ class item_profile(private val mypost: Post) : Fragment()
 
     //ZX
 //==========================================================================================
-    private fun openFragment()
-    {
-        val fragmentB = fragmentManager?.findFragmentById(R.id.fragment_map)
-        val transaction = childFragmentManager.beginTransaction()
-        if (fragmentB != null) {
-            transaction.replace(R.id.fragment_map, fragmentB)
-        }
-        transaction.addToBackStack(null) // Optional: Add to back stack if needed
-        transaction.commit()
-    }
+    //private fun openFragment()
+    //{
+    //    val fragmentB = fragmentManager?.findFragmentById(R.id.fragment_map)
+    //    val transaction = childFragmentManager.beginTransaction()
+    //    if (fragmentB != null) {
+    //        transaction.replace(R.id.fragment_map, fragmentB)
+    //    }
+    //    transaction.addToBackStack(null) // Optional: Add to back stack if needed
+    //    transaction.commit()
+    //}
 //==========================================================================================
 }
 //    override fun onCreate(savedInstanceState: Bundle?) {
