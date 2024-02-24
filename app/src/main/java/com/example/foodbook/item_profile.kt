@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -14,9 +15,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.foodbook.Activities.userEmail
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storageMetadata
+import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
+
+lateinit var commentEditText: EditText
 
 private fun convertEpochToDateTime(epochTime: Long): String
 {
@@ -39,6 +48,8 @@ class item_profile(private val mypost: Post) : Fragment()
         val postAuthor = view.findViewById<TextView>(R.id.posterer)
         val descriptionText = view.findViewById<TextView>(R.id.tag_state_description)
         val ratingbar = view.findViewById<RatingBar>(R.id.ratingBar)
+        val sendCommentButton = view.findViewById<Button>(R.id.ButtonSendComment)
+        commentEditText = view.findViewById(R.id.CommentsEditText)
         val commentsHeadercount = view.findViewById<TextView>(R.id.CommentsHeaderTextView)
         val commentsRecyclerView = view.findViewById<RecyclerView>(R.id.commentsRecyclerView)
         val layoutManager = LinearLayoutManager(context)
@@ -48,14 +59,21 @@ class item_profile(private val mypost: Post) : Fragment()
         descriptionText.text = mypost.caption
         ratingbar.rating = mypost.price_range.toFloat()
 
-        var commentList: List<Comment> = emptyList()
-        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
-        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
-        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
-        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
-        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+//        var commentList: List<Comment> = emptyList()
+//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+//
+//        println("${commentList}")
 
-        println("${commentList}")
+        val post_filepath: String = "comments/" + mypost.dateTime
+        val storageRef: StorageReference = FirebaseStorage.getInstance().getReference(post_filepath)
+        var commentList = GetAllCommentsFromPost(storageRef)
+
+        println("commentlist ${commentList.size}: ${commentList}")
+
         val commentsadapter = CommentsAdapter(requireContext(), commentList)
         commentsRecyclerView.adapter = commentsadapter
         commentsHeadercount.text = "Comments (" + commentList.size.toString() + ")"
@@ -68,6 +86,10 @@ class item_profile(private val mypost: Post) : Fragment()
 
         println(">> location name: ${mypost.location_name}")
         titleTextView.text = mypost.location_name
+
+        sendCommentButton.setOnClickListener() {
+            uploadComment(mypost.dateTime.toString())   // upload a comment regarding this specific post
+        }
 
         buttonopen.setOnClickListener {
 //            openFragment() // need to uncomment it          ZX
@@ -110,25 +132,63 @@ class item_profile(private val mypost: Post) : Fragment()
             startActivity(webMapIntent)
         }
     }
-
 }
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_item_profile)
-//
-//        val buttonOpenFragment = findViewById<Button>(R.id.loc)
-//        buttonOpenFragment.setOnClickListener {
-//            // Replace 'YourFragment' with the fragment you want to open
-//            replaceFragment(MapsFragment())
-//
-//        }
-//
-//    }
 
-//        private fun replaceFragment(fragment: Fragment) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_map, fragment)
-//                .addToBackStack(null)
-//                .commit()
-//        }
-//}
+
+private fun uploadComment(post_timesinceepoch: String)
+{
+    val filepathString: String = "comments/" + post_timesinceepoch
+    println("FilepathString: ${filepathString}")
+    val lStorage: StorageReference = FirebaseStorage.getInstance().reference.child(filepathString)
+    UploadFile(lStorage)
+}
+
+private fun UploadFile(Storage: StorageReference)
+{
+    val comment: String = commentEditText.text.toString()
+
+    if(comment.isEmpty()) {
+        return
+    }
+    commentEditText.text.clear()
+
+    val postData = comment
+    val metaData = storageMetadata {
+        contentType = "txt"
+        setCustomMetadata("Comment_DateTime", System.currentTimeMillis().toString())
+        setCustomMetadata("Comment", comment)
+        setCustomMetadata("Commentor_UserEmail", userEmail)
+    }
+    println("user email: ${userEmail.toString()}")
+    val postRef = Storage.child(userEmail.toString())
+    postRef.putBytes(postData.toByteArray(), metaData)
+        .addOnSuccessListener {
+            println("Comment ${comment} has been posted")
+        }
+        .addOnFailureListener() {e ->
+            println("Comment failed to post >> ${e.message}")
+        }
+}
+
+private fun GetAllCommentsFromPost(Storage: StorageReference)
+    : List<Comment>
+{
+    var comments: List<Comment> = emptyList()
+
+    Storage.listAll()
+        .addOnSuccessListener { result->
+            for(item in result.items)
+            {
+                item.metadata.addOnSuccessListener {item_metadata->
+                    val comment_datetime: String = item_metadata.getCustomMetadata("Comment_DateTime").toString()
+                    val comment: String = item_metadata.getCustomMetadata("Comment").toString()
+                    val commentor_useremail: String = item_metadata.getCustomMetadata("Commentor_UserEmail").toString()
+
+                    println("useremail ${commentor_useremail}, comment_datetime ${comment_datetime}, comment: ${comment}")
+                    comments += Comment(comment = comment, userEmail = commentor_useremail, datetime = comment_datetime)
+                }
+            }
+        }
+
+    return comments
+}

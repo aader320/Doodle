@@ -37,6 +37,8 @@ import com.google.firebase.storage.storageMetadata
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
+var userEmail: String = ""
+
 class UploadActivity : AppCompatActivity()
 {
     // upload items
@@ -44,7 +46,6 @@ class UploadActivity : AppCompatActivity()
     private lateinit var GeminitextView: TextView
     private lateinit var viewModel: AIModel
     private lateinit var bitMap: Bitmap     // store this to firebase
-    private lateinit var userEmail: String
     private var priceRange: Int = 0
 
     private val REQUEST_IMAGE_CAPTURE = 101

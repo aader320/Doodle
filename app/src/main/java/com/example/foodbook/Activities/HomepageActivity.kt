@@ -81,6 +81,8 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
         itemPostRecyclerview.adapter = adapter
 
         onclicklisteners()
+
+        userEmail = intent.getStringExtra("USER_EMAIL").toString()
     }
 
 

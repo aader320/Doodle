@@ -7,16 +7,6 @@
     android:background="#FFFFFF"
     tools:context=".item_profile">
 
-    <EditText
-        android:id="@+id/CommentsEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter your Comment"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
 
     <ImageView
         android:id="@+id/ItemImage"
@@ -147,9 +137,31 @@
                 tools:layout_editor_absoluteY="170dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/CommentsEditText"
                 app:layout_constraintTop_toBottomOf="@id/CommentsHeaderTextView"
                 />
 
+
+            <EditText
+                android:id="@+id/CommentsEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Enter your Comment"
+                android:layout_margin="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <Button
+                android:id="@+id/ButtonSendComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="send"
+                app:layout_constraintStart_toEndOf="@id/CommentsEditText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
