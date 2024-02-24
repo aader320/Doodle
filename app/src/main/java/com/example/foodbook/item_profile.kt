@@ -8,9 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+private fun convertEpochToDateTime(epochTime: Long): String
+{
+    val date = Date(epochTime)
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    return sdf.format(date)
+}
 
 class item_profile(private val mypost: Post) : Fragment()
 {
@@ -23,6 +34,13 @@ class item_profile(private val mypost: Post) : Fragment()
         val buttonopen = view.findViewById<Button>(R.id.loc)
         val itemimage = view.findViewById<ImageView>(R.id.ItemImage)
         val titleTextView = view.findViewById<TextView>(R.id.Title)
+        val postAuthor = view.findViewById<TextView>(R.id.posterer)
+        val descriptionText = view.findViewById<TextView>(R.id.tag_state_description)
+        val ratingbar = view.findViewById<RatingBar>(R.id.ratingBar)
+
+        postAuthor.text = "By: " + mypost.userEmail.substringBefore('@') + " (" + convertEpochToDateTime(mypost.dateTime) + ")"
+        descriptionText.text = mypost.caption
+        ratingbar.rating = mypost.price_range.toFloat()
 
         Glide.with(this)
             .load(mypost.imageUrl)
