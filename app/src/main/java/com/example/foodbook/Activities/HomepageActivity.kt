@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.foodbook.OnPostClickListener
 import com.example.foodbook.Post
 import com.example.foodbook.PostAdapter
+import com.example.foodbook.ProfileFragment
 import com.example.foodbook.R
 import com.example.foodbook.item_profile
 import com.example.foodbook.postsViewModel
@@ -29,10 +30,19 @@ import kotlinx.coroutines.tasks.await
 class HomepageActivity : AppCompatActivity(), OnPostClickListener
 {
     lateinit var itemPostRecyclerview: RecyclerView
+    lateinit var userProfileRecyclerView: RecyclerView
     private lateinit var postViewModel: postsViewModel
 
 
     private fun replaceFragment(fragment: Fragment)
+    {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.item_profile_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun openProfileFragment(fragment: Fragment)
     {
         supportFragmentManager.beginTransaction()
             .replace(R.id.item_profile_container, fragment)
@@ -63,6 +73,9 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
         val layoutManager = LinearLayoutManager(this)
         itemPostRecyclerview.layoutManager = layoutManager
 
+        // >> user profile recyclerview test
+        userProfileRecyclerView = findViewById<RecyclerView>(R.id.testProfileRecyclerview)
+
         val filepathString: String = "uploads"
         val lStorage: StorageReference = FirebaseStorage.getInstance().getReference(filepathString)
 
@@ -75,7 +88,21 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
     private fun onclicklisteners()
     {
         val toUploadFromHomepageButton = findViewById<Button>(R.id.toUploadFromHomepageButton)
+        val toProfilePageButton = findViewById<Button>(R.id.toProfileFromHomepageButton)
 
+        toProfilePageButton.setOnClickListener()
+        {
+            println("CALLING PROFILE PAGE FRAGMENT  ")
+            CoroutineScope(Dispatchers.Main).launch {
+                replaceFragment(
+                    ProfileFragment(
+                        postViewModel.getUserPosts(
+                            intent.getStringExtra("USER_EMAIL").toString()
+                        ).await()
+                    )
+                )
+            }
+        }
 
         toUploadFromHomepageButton.setOnClickListener()
         {
@@ -136,6 +163,12 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
                 itemPostRecyclerview.adapter = adapter
                 println(">> TEST USERPOST SIZE: ${posts.size}")
                 println(">> TEST VIEWMODEL FLOW SIZE: ${postViewModel.getPostSize().await()}")
+
+
+                val ProfileAdapter = PostAdapter(this@HomepageActivity, postViewModel.getUserPosts(intent.getStringExtra("USER_EMAIL").toString()).await(), this@HomepageActivity)
+                userProfileRecyclerView.adapter = ProfileAdapter
+
+                println("userPost size: ${postViewModel.getUserPosts(intent.getStringExtra("USER_EMAIL").toString()).await().size}, for username: ${intent.getStringExtra("USER_EMAIL")}")
             }
             catch (e: Exception) {
                 // Handle exceptions

@@ -29,14 +29,14 @@ interface OnPostClickListener {
 
 
 class PostAdapter(private val context: Context, private val Posts: List<Post>, private val listener: OnPostClickListener)
-    : RecyclerView.Adapter<PostAdapter.ViewHolder>()
+    : RecyclerView.Adapter<PostAdapter.postViewHolder>()
 {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.postViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.post_item, parent, false)
-        return ViewHolder(view)
+        return postViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int)
+    override fun onBindViewHolder(holder: postViewHolder, position: Int)
     {
         val myPost = Posts[position]
         Glide.with(context)
@@ -52,7 +52,7 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>, p
         return Posts.size
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    inner class postViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
     {
         val imageView: ImageView = itemView.findViewById(R.id.imageViewPost)
         val captionText: TextView = itemView.findViewById(R.id.textViewCaption)
@@ -109,6 +109,10 @@ class postsViewModel(appl: Application)
     fun getAllPosts(): Deferred<List<Post>> {
         // call .await() when calling this function
         return postsScope.async { repository.allPosts.first() }
+    }
+
+    fun getUserPosts(inputUserEmail: String): Deferred<List<Post>> {
+        return postsScope.async { repository.getPostsByUser(inputUserEmail) }
     }
 
     fun clearAllPosts() {
