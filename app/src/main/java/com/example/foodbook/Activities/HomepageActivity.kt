@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.ColumnInfo
@@ -23,6 +24,7 @@ import com.google.firebase.storage.ListResult
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -67,6 +69,16 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
         val lStorage: StorageReference = FirebaseStorage.getInstance().getReference(filepathString)
 
         getAllFilesInMainFolder(lStorage)
+
+        val adapter = PostAdapter(this@HomepageActivity, this@HomepageActivity)
+        lifecycleScope.launch {
+            postViewModel.getAllPostsFlow().collect {posts ->
+                adapter.submitList(posts)
+                adapter.notifyDataSetChanged()
+            }
+        }
+
+        itemPostRecyclerview.adapter = adapter
 
         onclicklisteners()
     }
@@ -120,7 +132,7 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
                         var imageDownloadURL = downloadUrlTask.toString()
                         var imageCaption = metadata.getCustomMetadata("Caption") ?: "No caption"
                         var imageLocation = metadata.getCustomMetadata("Location") ?: "No location"
-                        var imageLocationName = metadata.getCustomMetadata("Location_Name") ?: "No location"
+                        var imageLocationName = metadata.getCustomMetadata("Location_Name") ?: "SIT SP"
                         var imageUserEmail = metadata.getCustomMetadata("User_Email") ?: "No user email"
                         var imageTimePosted = metadata.getCustomMetadata("TimeSinceEpoch") ?: "1000"
                         var imagePriceRange = metadata.getCustomMetadata("Price_Range") ?: "1"
@@ -132,8 +144,8 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
                 }
 
                 // Update UI after all tasks are completed
-                val adapter = PostAdapter(this@HomepageActivity, postViewModel.getAllPosts().await(), this@HomepageActivity)
-                itemPostRecyclerview.adapter = adapter
+//                val adapter = PostAdapter(this@HomepageActivity, postViewModel.getAllPosts().await(), this@HomepageActivity)
+//                itemPostRecyclerview.adapter = adapter
                 println(">> TEST USERPOST SIZE: ${posts.size}")
                 println(">> TEST VIEWMODEL FLOW SIZE: ${postViewModel.getPostSize().await()}")
             }

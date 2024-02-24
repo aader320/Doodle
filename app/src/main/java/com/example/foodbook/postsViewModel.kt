@@ -9,12 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -28,8 +31,9 @@ interface OnPostClickListener {
 
 
 
-class PostAdapter(private val context: Context, private val Posts: List<Post>, private val listener: OnPostClickListener)
-    : RecyclerView.Adapter<PostAdapter.ViewHolder>()
+class PostAdapter(private val context: Context, private val listener: OnPostClickListener)
+    : ListAdapter<Post, PostAdapter.ViewHolder>(PostDiffCallback())
+    //: RecyclerView.Adapter<PostAdapter.ViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.post_item, parent, false)
@@ -38,7 +42,7 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>, p
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
     {
-        val myPost = Posts[position]
+        val myPost = currentList[position]
         Glide.with(context)
             .load(myPost.imageUrl)
             .placeholder((R.drawable.logo))
@@ -49,7 +53,8 @@ class PostAdapter(private val context: Context, private val Posts: List<Post>, p
     }
 
     override fun getItemCount(): Int {
-        return Posts.size
+        //return Posts.size
+        return currentList.size
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
@@ -111,11 +116,25 @@ class postsViewModel(appl: Application)
         return postsScope.async { repository.allPosts.first() }
     }
 
+    fun getAllPostsFlow(): Flow<List<Post>> {
+        return repository.allPosts
+    }
+
     fun clearAllPosts() {
         postsScope.async { repository.clearDatabase() }
     }
 }
 
+
+class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
+    override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem.post_id == newItem.post_id
+    }
+
+    override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem == newItem
+    }
+}
 
 
 
