@@ -1,90 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="18dp">
+    android:layout_height="700dp"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:gravity="center"
+    android:paddingRight="16dp">
 
-    <ImageView
-        android:id="@+id/imageViewPost"
-        android:layout_width="match_parent"
-        android:layout_height="380dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUsername"
-        app:srcCompat="@drawable/ic_dashboard_black_24dp" />
 
-    <TextView
-        android:id="@+id/textViewUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.01"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="336dp"
+        android:layout_height="579dp"
+        android:layout_margin="10dp"
 
-    <TextView
-        android:id="@+id/textViewCaption"
-        android:layout_width="368dp"
-        android:layout_height="32dp"
-        android:fontFamily="@font/allerta"
-        android:text="Caption"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPost" />
+        android:background="#CAE4AC"
+        android:elevation="27dp"
+        app:cardBackgroundColor="#EBFFD3"
+        app:cardCornerRadius="15dp">
 
-    <TextView
-        android:id="@+id/textViewLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOCATION"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/textViewLocationName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCaption" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="577dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewLocationName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="LOCATION NAME"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCaption" />
+            <ImageView
+                android:id="@+id/imageViewPost"
+                android:layout_width="match_parent"
+                android:layout_height="380dp"
+                app:srcCompat="@drawable/ic_dashboard_black_24dp" />
 
-    <TextView
-        android:id="@+id/textViewTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TIME SINCE EPOCH"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLocationName" />
+            <TextView
+                android:id="@+id/textViewUsername2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="385dp"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
+            <TextView
+                android:id="@+id/textViewCaption"
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/allerta"
+                android:gravity="center"
+                android:text="Caption" />
 
-    <RatingBar
-        android:id="@+id/ratingBar2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:numStars="5"
-        android:rating="2.5"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textViewLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOCATION"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textViewLocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="LOCATION NAME" />
+
+            <TextView
+                android:id="@+id/textViewTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIME SINCE EPOCH" />
+
+            <RatingBar
+                android:id="@+id/ratingBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:numStars="5"
+                android:rating="2.5"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textViewUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
