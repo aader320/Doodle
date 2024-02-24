@@ -88,7 +88,6 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
     {
         val toUploadFromHomepageButton = findViewById<Button>(R.id.toUploadFromHomepageButton)
 
-
         toUploadFromHomepageButton.setOnClickListener()
         {
             val intent = Intent(this, UploadActivity::class.java).apply {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -64,8 +65,8 @@ class PostAdapter(private val context: Context, private val listener: OnPostClic
         val usernameText: TextView = itemView.findViewById(R.id.textViewUsername)
         //val locationText: TextView = itemView.findViewById(R.id.textViewLocation)
         val timeSinceEpochText: TextView = itemView.findViewById(R.id.textViewTime)
-        val money_price: TextView = itemView.findViewById(R.id.textViewMoney)
         val locationnameText: TextView = itemView.findViewById(R.id.textViewLocationName)
+        val ratingbar: RatingBar = itemView.findViewById(R.id.ratingBar2)
 
         private fun convertEpochToDateTime(epochTime: Long): String
         {
@@ -80,8 +81,8 @@ class PostAdapter(private val context: Context, private val listener: OnPostClic
             usernameText.text       = post.userEmail
             //locationText.text       = post.location
             locationnameText.text   = post.location_name
-            money_price.text        = "Cost: " + post.price_range
             timeSinceEpochText.text = convertEpochToDateTime(post.dateTime)
+            ratingbar.rating = post.price_range.toFloat()
 
             itemView.setOnClickListener {
                 listener.onPostClick(post)
