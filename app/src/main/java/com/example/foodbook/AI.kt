@@ -4,7 +4,9 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
+import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 object BitmapHolder {
     var bitmap: Bitmap? = null
@@ -13,16 +15,21 @@ object BitmapHolder {
 class AI : AppCompatActivity() {
     lateinit var viewModel: AIModel
     lateinit var bitMap : Bitmap
-    lateinit var imageView: ImageView
+    lateinit var aiReply : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ai)
 
-        imageView = findViewById(R.id.imageView3)
+        aiReply = findViewById(R.id.aiReply)
+        viewModel = ViewModelProvider(this).get(AIModel::class.java)
+        viewModel.textResult.observe(this, Observer { result ->
+            aiReply.text = result
+        })
+
         if (BitmapHolder.bitmap != null)
         {
-            imageView.setImageBitmap(BitmapHolder.bitmap)
+            bitMap = BitmapHolder.bitmap!!
         }
 
         findViewById<Button>(R.id.button2).setOnClickListener {
