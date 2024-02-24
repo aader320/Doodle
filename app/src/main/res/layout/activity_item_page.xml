@@ -7,11 +7,26 @@
     android:background="#FFFFFF"
     tools:context=".item_profile">
 
+    <EditText
+        android:id="@+id/CommentsEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your Comment"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
     <ImageView
         android:id="@+id/ItemImage"
         android:layout_width="411dp"
         android:layout_height="415dp"
-        app:srcCompat="@drawable/cats" />
+        app:srcCompat="@drawable/cats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <ImageView
         android:id="@+id/pager"
@@ -20,6 +35,8 @@
 
         android:layout_marginTop="348dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/pager"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -41,7 +58,7 @@
     <ScrollView
         android:id="@+id/item_profile_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -68,10 +85,13 @@
             <TextView
                 android:id="@+id/posterer"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
                 android:paddingLeft="20dp"
                 android:text="By: Adalene Falcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Title" />
 
@@ -103,7 +123,7 @@
                 />
 
             <TextView
-                android:id="@+id/CommentsTextView"
+                android:id="@+id/CommentsHeaderTextView"
                 android:layout_width="411dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -127,19 +147,7 @@
                 tools:layout_editor_absoluteY="170dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/CommentsTextView"
-                app:layout_constraintBottom_toTopOf="@id/CommentsEditText"
-                />
-
-            <EditText
-                android:id="@+id/CommentsEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter your Comment"
-                android:layout_margin="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/CommentsHeaderTextView"
                 />
 
 

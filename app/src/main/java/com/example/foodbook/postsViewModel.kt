@@ -31,7 +31,6 @@ interface OnPostClickListener {
 }
 
 
-
 class PostAdapter(private val context: Context, private val listener: OnPostClickListener)
     : ListAdapter<Post, PostAdapter.ViewHolder>(PostDiffCallback())
     //: RecyclerView.Adapter<PostAdapter.ViewHolder>()
@@ -82,15 +81,24 @@ class PostAdapter(private val context: Context, private val listener: OnPostClic
             //locationText.text       = post.location
             locationnameText.text   = post.location_name
             timeSinceEpochText.text = convertEpochToDateTime(post.dateTime)
-            ratingbar.rating = post.price_range.toFloat()
+            ratingbar.rating        = post.price_range.toFloat()
 
             itemView.setOnClickListener {
                 listener.onPostClick(post)
             }
         }
     }
-}
 
+    class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
+        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem.post_id == newItem.post_id
+        }
+
+        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+            return oldItem == newItem
+        }
+    }
+}
 
 
 class postsViewModel(appl: Application)
@@ -127,19 +135,61 @@ class postsViewModel(appl: Application)
 }
 
 
-class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
-    override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
-        return oldItem.post_id == newItem.post_id
+
+
+
+
+
+
+class CommentsAdapter(private val context: Context, private val comments: List<Comment>)
+    : ListAdapter<Comment, CommentsAdapter.commentsViewHolder>(CommentsAdapter.CommentsDiffCallback())
+{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsAdapter.commentsViewHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.comment_item, parent, false)
+        return commentsViewHolder(view)
     }
 
-    override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
-        return oldItem == newItem
+    override fun onBindViewHolder(holder: commentsViewHolder, position: Int)
+    {
+        val myComment = comments[position]
+        holder.bind(myComment)
+    }
+
+    override fun getItemCount(): Int {
+        //return Posts.size
+        return comments.size
+    }
+
+    inner class commentsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    {
+        val imageView: ImageView = itemView.findViewById(R.id.commentUserImage)
+        val commentUsername: TextView = itemView.findViewById(R.id.commentUsername)
+        val commentText: TextView = itemView.findViewById(R.id.commentTextview)
+
+        private fun convertEpochToDateTime(epochTime: Long): String
+        {
+            val date = Date(epochTime)
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            return sdf.format(date)
+        }
+
+        fun bind(mycomment: Comment)
+        {
+            commentUsername.text = mycomment.userEmail + " <" + convertEpochToDateTime(mycomment.datetime.toLong()) + "> "
+            commentText.text = mycomment.comment
+        }
+    }
+
+    class CommentsDiffCallback : DiffUtil.ItemCallback<Comment>() {
+        override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+            return oldItem.comment_id == newItem.comment_id
+        }
+
+        override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+            return oldItem == newItem
+        }
     }
 }
-
-
-
-
 
 
 

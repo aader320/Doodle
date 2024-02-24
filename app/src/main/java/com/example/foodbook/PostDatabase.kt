@@ -15,6 +15,22 @@ import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 
+@Entity(tableName = "Comments_Table")
+data class Comment (
+    @PrimaryKey(autoGenerate = true)
+    val comment_id: Int = 0,
+
+    @ColumnInfo(name = "comment")
+    val comment: String,
+
+    @ColumnInfo(name = "userEmail")
+    val userEmail: String,
+
+    @ColumnInfo(name = "datetime")
+    val datetime: String
+)
+
+
 @Entity(tableName = "Posts_Table")
 data class Post (
     @PrimaryKey(autoGenerate = true)
@@ -52,13 +68,13 @@ interface PostsDAO
     @Update
     suspend fun updatePost(post: Post)
 
-    @Query("SELECT * FROM Posts_Table ORDER BY post_id ASC")
+    @Query("SELECT * FROM Posts_Table ORDER BY post_id DESC")
     fun getAllPosts(): Flow<List<Post>>
 
-    @Query("SELECT * FROM Posts_Table WHERE dateTime = :postDateTime ORDER BY post_id ASC")
+    @Query("SELECT * FROM Posts_Table WHERE dateTime = :postDateTime ORDER BY post_id DESC")
     fun getPostsByDateTime(postDateTime: Long): List<Post>
 
-    @Query("SELECT * FROM Posts_Table WHERE userEmail = :inputUserEmail ORDER BY post_id ASC")
+    @Query("SELECT * FROM Posts_Table WHERE userEmail = :inputUserEmail ORDER BY post_id DESC")
     fun getPostsByUser(inputUserEmail : String): List<Post>
 
     @Query("DELETE FROM Posts_Table")

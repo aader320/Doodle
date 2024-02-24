@@ -244,8 +244,6 @@ class UploadActivity : AppCompatActivity()
             return
         }
 
-        prevUploadCaption = caption
-
         if(caption.isEmpty()) {
             Toast.makeText(this, "Please Input a caption!", Toast.LENGTH_SHORT).show()
             return
@@ -261,9 +259,11 @@ class UploadActivity : AppCompatActivity()
             return
         }
 
-        val filepathString: String = System.currentTimeMillis().toString() + ".jpeg"
+        val timesinceepoch: String = System.currentTimeMillis().toString()
+        val filepathString: String = timesinceepoch + ".jpeg"
         val lStorage: StorageReference = Storage.child(filepathString)
 
+        prevUploadCaption = caption
         imageView.isDrawingCacheEnabled = true
         imageView.buildDrawingCache()
         val baos = ByteArrayOutputStream()
@@ -279,7 +279,7 @@ class UploadActivity : AppCompatActivity()
             setCustomMetadata("Location_Name", LocationresultName)
             setCustomMetadata("Price_Range", priceRange.toString())
             setCustomMetadata("User_Email", userEmail)
-            setCustomMetadata("TimeSinceEpoch", System.currentTimeMillis().toString())
+            setCustomMetadata("TimeSinceEpoch", timesinceepoch)
         }
 
         val Imagedata = baos.toByteArray()

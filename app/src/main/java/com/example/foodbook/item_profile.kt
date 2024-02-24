@@ -11,6 +11,8 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -37,10 +39,26 @@ class item_profile(private val mypost: Post) : Fragment()
         val postAuthor = view.findViewById<TextView>(R.id.posterer)
         val descriptionText = view.findViewById<TextView>(R.id.tag_state_description)
         val ratingbar = view.findViewById<RatingBar>(R.id.ratingBar)
+        val commentsHeadercount = view.findViewById<TextView>(R.id.CommentsHeaderTextView)
+        val commentsRecyclerView = view.findViewById<RecyclerView>(R.id.commentsRecyclerView)
+        val layoutManager = LinearLayoutManager(context)
+        commentsRecyclerView.layoutManager = layoutManager
 
         postAuthor.text = "By: " + mypost.userEmail.substringBefore('@') + " (" + convertEpochToDateTime(mypost.dateTime) + ")"
         descriptionText.text = mypost.caption
         ratingbar.rating = mypost.price_range.toFloat()
+
+        var commentList: List<Comment> = emptyList()
+        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
+
+        println("${commentList}")
+        val commentsadapter = CommentsAdapter(requireContext(), commentList)
+        commentsRecyclerView.adapter = commentsadapter
+        commentsHeadercount.text = "Comments (" + commentList.size.toString() + ")"
 
         Glide.with(this)
             .load(mypost.imageUrl)
