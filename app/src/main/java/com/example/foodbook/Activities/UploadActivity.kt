@@ -55,7 +55,8 @@ class UploadActivity : AppCompatActivity()
     private lateinit var loactionLatLong: TextView
     private lateinit var locationName: TextView
     private var rotation = 0.0f
-
+    private var uploadCount: Int = 0
+    private var prevUploadCaption: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -237,6 +238,13 @@ class UploadActivity : AppCompatActivity()
         val LocationresultLatLang: String = loactionLatLong.text.toString()
         val LocationresultName: String = locationName.text.toString()
         val caption:String = captiontext.editText!!.text.toString()
+
+        if(prevUploadCaption == caption) {
+            Toast.makeText(this, "Multiple upload attempt blocked", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        prevUploadCaption = caption
 
         if(caption.isEmpty()) {
             Toast.makeText(this, "Please Input a caption!", Toast.LENGTH_SHORT).show()
