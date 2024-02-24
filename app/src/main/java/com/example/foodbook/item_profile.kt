@@ -1,6 +1,8 @@
 package com.example.foodbook
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +21,8 @@ import com.example.foodbook.Activities.userEmail
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storageMetadata
-import kotlinx.coroutines.tasks.await
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -96,10 +99,21 @@ class item_profile(private val mypost: Post) : Fragment()
             openGoogleMaps(mypost.location)
         }
 
+        Glide.with(this)
+            .asBitmap()
+            .load(mypost.imageUrl)
+            .into(object : CustomTarget<Bitmap>(){
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    BitmapHolder.bitmap = resource
+                }
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    BitmapHolder.bitmap = null
+                }
+            })
+
         view.findViewById<Button>(R.id.AI).setOnClickListener {
             val activity = requireActivity()
             val intent = Intent(activity, AI::class.java)
-            intent.putExtra("bitmapUri", mypost.imageUrl)
             startActivity(intent)
         }
 

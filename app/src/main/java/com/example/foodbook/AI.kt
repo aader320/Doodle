@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
+object BitmapHolder {
+    var bitmap: Bitmap? = null
+}
+
 class AI : AppCompatActivity() {
     lateinit var viewModel: AIModel
     lateinit var bitMap : Bitmap
@@ -13,7 +17,10 @@ class AI : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ai)
 
-        val bitmapUri = intent.getStringExtra("bitmapUri")
+        if (BitmapHolder.bitmap != null)
+        {
+            bitMap = BitmapHolder.bitmap!!
+        }
 
         findViewById<Button>(R.id.button2).setOnClickListener {
             viewModel.generateText(bitMap,"What's this food item?")
