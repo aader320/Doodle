@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="700dp"
     android:orientation="vertical"
@@ -31,18 +32,26 @@
                 app:srcCompat="@drawable/ic_dashboard_black_24dp" />
 
             <TextView
-                android:id="@+id/textViewUsername2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-
-            <TextView
                 android:id="@+id/textViewCaption"
-                android:layout_width="368dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/allerta"
                 android:gravity="center"
                 android:text="Caption" />
+
+            <RatingBar
+                android:id="@+id/ratingBar2"
+                android:layout_width="138dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:numStars="3"
+                android:stepSize="1"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textViewUsername2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textViewLocation"
@@ -63,15 +72,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TIME SINCE EPOCH" />
-
-            <RatingBar
-                android:id="@+id/ratingBar2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:numStars="5"
-                android:rating="2.5"
-                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/textViewUsername"
