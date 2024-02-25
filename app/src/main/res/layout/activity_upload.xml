@@ -15,6 +15,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="27dp"
         android:layout_marginBottom="10dp"
+        android:elevation="15dp"
         app:layout_constraintBottom_toTopOf="@+id/geminiPrompt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -198,7 +199,7 @@
         android:id="@+id/DollarSignCountersLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="6dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -210,7 +211,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
-            android:text="Price Range"
+            android:text="Price"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             tools:layout_editor_absoluteY="41dp" />
@@ -220,6 +222,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            android:visibility="gone"
             app:srcCompat="@drawable/normal_baseline_attach_money_24" />
 
         <ImageButton
@@ -227,6 +230,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            android:visibility="gone"
             app:srcCompat="@drawable/normal_baseline_attach_money_24" />
 
         <ImageButton
@@ -234,7 +238,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            android:visibility="gone"
             app:srcCompat="@drawable/normal_baseline_attach_money_24" />
+
+        <RatingBar
+            android:id="@+id/ratingBar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:numStars="3"
+            android:stepSize="1" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
