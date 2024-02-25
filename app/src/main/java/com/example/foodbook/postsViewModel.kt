@@ -9,6 +9,9 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -70,7 +73,7 @@ class PostAdapter(private val context: Context, private val listener: OnPostClic
         private fun convertEpochToDateTime(epochTime: Long): String
         {
             val date = Date(epochTime)
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             return sdf.format(date)
         }
 
@@ -136,12 +139,41 @@ class postsViewModel(appl: Application)
 
 
 
+class commentsViewModel: ViewModel()
+{
+    private val commentsLiveData = MutableLiveData<List<Comment>>()
+
+    // update the comments
+    fun updateComments(comments: List<Comment>) {
+        commentsLiveData.value = comments
+    }
+
+    fun addComment(comment: Comment) {
+        val currentComments = commentsLiveData.value.orEmpty().toMutableList()
+        currentComments.add(comment)
+        commentsLiveData.value = currentComments
+    }
+
+    // function to observe the comments data from the viewmodel
+    fun getCommentsLiveData()
+        : LiveData<List<Comment>> {
+        return commentsLiveData
+    }
+
+    fun getCommentLiveDataSize()
+        : Int {
+        return commentsLiveData.value?.size ?: 0
+    }
+
+    fun clearComments() {
+        commentsLiveData.value = emptyList()
+    }
+}
 
 
 
 
-
-class CommentsAdapter(private val context: Context, private val comments: List<Comment>)
+class CommentsAdapter(private val context: Context)
     : ListAdapter<Comment, CommentsAdapter.commentsViewHolder>(CommentsAdapter.CommentsDiffCallback())
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsAdapter.commentsViewHolder {
@@ -151,13 +183,13 @@ class CommentsAdapter(private val context: Context, private val comments: List<C
 
     override fun onBindViewHolder(holder: commentsViewHolder, position: Int)
     {
-        val myComment = comments[position]
+        val myComment = getItem(position)
         holder.bind(myComment)
     }
 
     override fun getItemCount(): Int {
         //return Posts.size
-        return comments.size
+        return currentList.size
     }
 
     inner class commentsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
@@ -169,7 +201,7 @@ class CommentsAdapter(private val context: Context, private val comments: List<C
         private fun convertEpochToDateTime(epochTime: Long): String
         {
             val date = Date(epochTime)
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             return sdf.format(date)
         }
 

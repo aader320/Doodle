@@ -105,8 +105,6 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
         postViewModel.clearAllPosts()
 
         CoroutineScope(Dispatchers.Main).launch {
-            val posts = mutableListOf<Post>()
-
             try
             {
                 // Await the entire list operation
@@ -147,7 +145,6 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
                 // Update UI after all tasks are completed
 //                val adapter = PostAdapter(this@HomepageActivity, postViewModel.getAllPosts().await(), this@HomepageActivity)
 //                itemPostRecyclerview.adapter = adapter
-                println(">> TEST USERPOST SIZE: ${posts.size}")
                 println(">> TEST VIEWMODEL FLOW SIZE: ${postViewModel.getPostSize().await()}")
             }
             catch (e: Exception) {
