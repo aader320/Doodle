@@ -126,7 +126,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/commentsRecyclerView"
                 android:layout_width="393dp"
-                android:layout_height="122dp"
+                android:layout_height="150dp"
                 app:layout_constraintTop_toBottomOf="@id/CommentsHeaderTextView"
                 tools:layout_editor_absoluteX="10dp" />
 
@@ -165,29 +165,35 @@
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
         android:background="@drawable/rounded_edittext"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Title" />
+        app:layout_constraintTop_toBottomOf="@+id/Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <Button
         android:id="@+id/ButtonSendComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
         android:text="send"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toEndOf="@+id/CommentsEditText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintTop_toBottomOf="@+id/item_profile_scroll"
+        />
 
     <EditText
         android:id="@+id/CommentsEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
         android:hint="Enter your Comment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_profile_scroll"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,9 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -23,12 +26,17 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storageMetadata
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 
 lateinit var commentEditText: EditText
+lateinit var commentViewModel: commentsViewModel
 
 private fun convertEpochToDateTime(epochTime: Long): String
 {
@@ -43,6 +51,11 @@ class item_profile(private val mypost: Post) : Fragment()
         : View?
     {
 //            return inflater.inflate(R.layout.activity_item_profile, container, false)
+        try {
+            commentViewModel = ViewModelProvider(requireActivity()).get(commentsViewModel::class.java)
+        } catch (e: Exception) {
+            println("ERROR INITIALIZING COMMENT VIEW MODEL: ${e.message}")
+        }
 
         val view: View = inflater.inflate(R.layout.activity_item_page, container, false)
         val buttonopen = view.findViewById<Button>(R.id.loc)
@@ -62,24 +75,28 @@ class item_profile(private val mypost: Post) : Fragment()
         descriptionText.text = mypost.caption
         ratingbar.rating = mypost.price_range.toFloat()
 
-//        var commentList: List<Comment> = emptyList()
-//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
-//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
-//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
-//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
-//        commentList += Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString())
-//
-//        println("${commentList}")
-
+        // Comments
         val post_filepath: String = "comments/" + mypost.dateTime
         val storageRef: StorageReference = FirebaseStorage.getInstance().getReference(post_filepath)
-        var commentList = GetAllCommentsFromPost(storageRef)
+        GetAllCommentsFromPost(storageRef)
 
-        println("commentlist ${commentList.size}: ${commentList}")
+//        commentViewModel.addComment(Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString()))
+//        commentViewModel.addComment(Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString()))
+//        commentViewModel.addComment(Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString()))
+//        commentViewModel.addComment(Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString()))
+//        commentViewModel.addComment(Comment(comment = "tetestes", userEmail = "abc", datetime = mypost.dateTime.toString()))
 
-        val commentsadapter = CommentsAdapter(requireContext(), commentList)
+        val commentsadapter = CommentsAdapter(requireContext())
         commentsRecyclerView.adapter = commentsadapter
-        commentsHeadercount.text = "Comments (" + commentList.size.toString() + ")"
+        commentsHeadercount.text = "Comments (" + commentViewModel.getCommentLiveDataSize() + ")"
+
+        commentViewModel.getCommentsLiveData().observe(viewLifecycleOwner, Observer { comments ->
+            commentsadapter.submitList(comments)
+            commentsadapter.notifyDataSetChanged()
+            commentsHeadercount.text = "Comments (" + commentViewModel.getCommentLiveDataSize() + ")"
+
+            println("Comment Obsever: ${comments.toString()}")
+        })
 
         Glide.with(this)
             .load(mypost.imageUrl)
@@ -91,6 +108,7 @@ class item_profile(private val mypost: Post) : Fragment()
         titleTextView.text = mypost.location_name
 
         sendCommentButton.setOnClickListener() {
+            commentViewModel.addComment(Comment(comment = commentEditText.text.toString(), userEmail = userEmail, datetime = System.currentTimeMillis().toString()))
             uploadComment(mypost.dateTime.toString())   // upload a comment regarding this specific post
         }
 
@@ -166,15 +184,16 @@ private fun UploadFile(Storage: StorageReference)
     }
     commentEditText.text.clear()
 
+    val comment_datetime = System.currentTimeMillis().toString()
     val postData = comment
     val metaData = storageMetadata {
         contentType = "txt"
-        setCustomMetadata("Comment_DateTime", System.currentTimeMillis().toString())
+        setCustomMetadata("Comment_DateTime", comment_datetime)
         setCustomMetadata("Comment", comment)
         setCustomMetadata("Commentor_UserEmail", userEmail)
     }
     println("user email: ${userEmail.toString()}")
-    val postRef = Storage.child(userEmail.toString())
+    val postRef = Storage.child(comment_datetime)
     postRef.putBytes(postData.toByteArray(), metaData)
         .addOnSuccessListener {
             println("Comment ${comment} has been posted")
@@ -184,25 +203,34 @@ private fun UploadFile(Storage: StorageReference)
         }
 }
 
-private fun GetAllCommentsFromPost(Storage: StorageReference)
-    : List<Comment>
+private fun GetAllCommentsFromPost(storage: StorageReference)
 {
-    var comments: List<Comment> = emptyList()
+    println(">>> getallcommentsfrompost!!")
+    commentViewModel.clearComments()
 
-    Storage.listAll()
-        .addOnSuccessListener { result->
-            for(item in result.items)
-            {
-                item.metadata.addOnSuccessListener {item_metadata->
-                    val comment_datetime: String = item_metadata.getCustomMetadata("Comment_DateTime").toString()
-                    val comment: String = item_metadata.getCustomMetadata("Comment").toString()
-                    val commentor_useremail: String = item_metadata.getCustomMetadata("Commentor_UserEmail").toString()
+    CoroutineScope(Dispatchers.Main).launch {
+        try
+        {
+            val subfolder = storage.listAll().await()
+            subfolder.items.forEach { item->
+                val itemMetadata = item.metadata.await()
+                val commentDateTime: String = itemMetadata.getCustomMetadata("Comment_DateTime").toString()
+                val comment: String         = itemMetadata.getCustomMetadata("Comment").toString()
+                val commentorUserEmail: String = itemMetadata.getCustomMetadata("Commentor_UserEmail").toString()
 
-                    println("useremail ${commentor_useremail}, comment_datetime ${comment_datetime}, comment: ${comment}")
-                    comments += Comment(comment = comment, userEmail = commentor_useremail, datetime = comment_datetime)
-                }
+                println("useremail ${commentorUserEmail}, comment_datetime ${commentDateTime}, comment: ${comment}")
+                commentViewModel.addComment(
+                    Comment(
+                        comment = comment,
+                        userEmail = commentorUserEmail,
+                        datetime = commentDateTime
+                    )
+                )
             }
-        }
 
-    return comments
+            println("viewmodel comments size: ${commentViewModel.getCommentLiveDataSize()}")
+        } catch (e: Exception) {
+            println(">> ERROR: Failed to retrieve comments. Error: ${e.message}")
+        }
+    }
 }
