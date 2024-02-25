@@ -15,67 +15,108 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/prompt"
         android:layout_width="166dp"
         android:layout_height="120dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="128dp"
         android:fontFamily="@font/acme"
         android:gravity="center"
         android:text="Ask Away"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/generated" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="146dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="52dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <ScrollView
+        android:layout_width="358dp"
+        android:layout_height="337dp"
+        app:layout_constraintBottom_toBottomOf="@+id/generated"
+        app:layout_constraintEnd_toEndOf="@+id/generated"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/prompt"
+        app:layout_constraintVertical_bias="0.305">
+
+        <TextView
+            android:id="@+id/aiReply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/inputAIText"
+        android:layout_width="360dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="What's this food?"
+        app:layout_constraintBottom_toBottomOf="@+id/generated"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.678" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="146dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="192dp"
-        android:text="Button"
+        android:id="@+id/askInput"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Enter"
+
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.773" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="146dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="192dp"
-        android:text="Button"
+        android:id="@+id/about"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="About"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88" />
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="146dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="52dp"
-        android:text="Button"
-
+        android:id="@+id/history"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="History"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.882" />
+
+    <Button
+        android:id="@+id/recipe"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Recipe"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.991" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@drawable/round_button"
 
         app:icon="@android:drawable/ic_menu_revert"
@@ -83,16 +124,5 @@
         app:iconPadding="0dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="14dp" />
-
-    <TextView
-        android:id="@+id/aiReply"
-        android:layout_width="340dp"
-        android:layout_height="191dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.333" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
