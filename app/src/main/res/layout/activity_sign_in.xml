@@ -108,6 +108,7 @@
                             android:fontFamily="sans-serif-smallcaps"
                             android:gravity="start"
                             android:hint="password"
+                            android:inputType="textPassword"
                             android:textAlignment="viewStart" />
                     </com.google.android.material.textfield.TextInputLayout>
 

@@ -64,6 +64,7 @@
                 android:layout_marginEnd="27dp"
                 android:layout_marginBottom="10dp"
                 android:elevation="15dp"
+                android:background="@drawable/textview_border"
                 app:layout_constraintBottom_toTopOf="@+id/geminiPrompt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,33 +84,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-            <Button
-                android:id="@+id/rotateLeftButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:text="⤺"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-            <Button
-                android:id="@+id/rotateRightButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:text="⤻"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/rotateLeftButton" />
-
             <LinearLayout
                 android:id="@+id/DollarSignCountersLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
                 android:layout_marginTop="6dp"
                 android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/geminiPrompt">
 
@@ -156,6 +137,24 @@
                     android:layout_weight="1"
                     android:numStars="3"
                     android:stepSize="1" />
+
+                <Button
+                    android:id="@+id/rotateRightButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="⤻"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/rotateLeftButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="⤺"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
