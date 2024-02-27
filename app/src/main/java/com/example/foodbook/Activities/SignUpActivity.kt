@@ -80,7 +80,7 @@ class SignUpActivity : AppCompatActivity() {
             return false
         }
 
-        if(password.length <= 6) {
+        if(password.length < 6) {
             binding.textInputLayoutPassword.error = "Password should be at least 6 characters long"
             binding.textInputLayoutConfirmPassword.errorIconDrawable = null
             return false

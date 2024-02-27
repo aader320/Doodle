@@ -82,6 +82,7 @@
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="start"
                 android:hint="password"
+                android:inputType="textPassword"
                 android:textAlignment="viewStart" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,11 +102,11 @@
                 android:id="@+id/etConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:background="@color/transparent"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="start"
                 android:hint="password"
+                android:inputType="textPassword"
                 android:textAlignment="viewStart" />
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -115,7 +115,7 @@ class UploadActivity : AppCompatActivity()
         }
 
         generateText.setOnClickListener {
-            viewModel.generateText(bitMap, "What's this item?")
+            viewModel.generateText(bitMap, "What's this item? Think of an informal foodie caption for me")
             GeminitextView.visibility = View.VISIBLE
         }
 
