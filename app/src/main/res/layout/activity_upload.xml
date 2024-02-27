@@ -162,7 +162,7 @@
             </LinearLayout>
 
             <Space
-                android:id="@+id/leftspace"
+                android:id="@+id/borderSpaceLeft"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="15dp"
@@ -179,9 +179,9 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:tooltipText="Take Picture"
-                app:layout_constraintBottom_toBottomOf="@+id/leftspace"
-                app:layout_constraintStart_toStartOf="@+id/leftspace"
-                app:layout_constraintTop_toTopOf="@+id/leftspace"
+                app:layout_constraintBottom_toBottomOf="@+id/borderSpaceLeft"
+                app:layout_constraintTop_toTopOf="@+id/borderSpaceLeft"
+                app:layout_constraintStart_toEndOf="@+id/borderSpaceLeft"
                 app:srcCompat="@drawable/photo_camera" />
 
             <ImageButton
@@ -223,7 +223,7 @@
                 app:srcCompat="@drawable/upload_2" />
 
             <Space
-                android:id="@+id/rightspace"
+                android:id="@+id/borderSpaceRight"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
