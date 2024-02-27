@@ -168,9 +168,10 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                app:layout_constraintBottom_toTopOf="@+id/postCaptionTextInputLayout"
+                app:layout_constraintBottom_toTopOf="@id/postCaptionTextInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/DollarSignCountersLinearLayout" />
+                app:layout_constraintTop_toBottomOf="@id/DollarSignCountersLinearLayout"
+                app:layout_constraintEnd_toStartOf="@id/captureButton"/>
 
             <ImageButton
                 android:id="@+id/captureButton"
@@ -179,10 +180,21 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:tooltipText="Take Picture"
-                app:layout_constraintBottom_toBottomOf="@+id/borderSpaceLeft"
-                app:layout_constraintTop_toTopOf="@+id/borderSpaceLeft"
-                app:layout_constraintStart_toEndOf="@+id/borderSpaceLeft"
+                app:layout_constraintBottom_toBottomOf="@id/borderSpaceLeft"
+                app:layout_constraintTop_toTopOf="@id/borderSpaceLeft"
+                app:layout_constraintStart_toEndOf="@id/borderSpaceLeft"
+                app:layout_constraintEnd_toStartOf="@id/buttonSpacingLeft"
                 app:srcCompat="@drawable/photo_camera" />
+
+            <Space
+                android:id="@+id/buttonSpacingLeft"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="@id/captureButton"
+                app:layout_constraintTop_toTopOf="@id/captureButton"
+                app:layout_constraintStart_toEndOf="@id/captureButton"
+                app:layout_constraintEnd_toStartOf="@id/chooseImageButton" />
 
             <ImageButton
                 android:id="@+id/chooseImageButton"
@@ -192,10 +204,20 @@
                 android:background="@null"
                 android:src="@drawable/filter"
                 android:tooltipText="Choose Picture from File"
-                app:layout_constraintBottom_toBottomOf="@+id/captureButton"
-                app:layout_constraintEnd_toStartOf="@+id/buttonGenerateText"
-                app:layout_constraintStart_toEndOf="@+id/captureButton"
-                app:layout_constraintTop_toTopOf="@+id/captureButton" />
+                app:layout_constraintBottom_toBottomOf="@id/buttonSpacingLeft"
+                app:layout_constraintTop_toTopOf="@id/buttonSpacingLeft"
+                app:layout_constraintEnd_toStartOf="@id/buttonSpacingMiddle"
+                app:layout_constraintStart_toEndOf="@id/buttonSpacingLeft" />
+
+            <Space
+                android:id="@+id/buttonSpacingMiddle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toTopOf="@id/chooseImageButton"
+                app:layout_constraintBottom_toBottomOf="@id/chooseImageButton"
+                app:layout_constraintStart_toEndOf="@id/chooseImageButton"
+                app:layout_constraintEnd_toStartOf="@id/buttonGenerateText" />
 
             <ImageButton
                 android:id="@+id/buttonGenerateText"
@@ -204,11 +226,22 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:tooltipText="Gemini Prompt"
-                app:layout_constraintBottom_toBottomOf="@+id/chooseImageButton"
-                app:layout_constraintEnd_toStartOf="@+id/buttonUploadToFirebase"
-                app:layout_constraintStart_toEndOf="@+id/chooseImageButton"
-                app:layout_constraintTop_toTopOf="@+id/chooseImageButton"
+                app:layout_constraintBottom_toBottomOf="@id/buttonSpacingMiddle"
+                app:layout_constraintTop_toTopOf="@id/buttonSpacingMiddle"
+                app:layout_constraintEnd_toStartOf="@id/buttonSpacingRight"
+                app:layout_constraintStart_toEndOf="@id/buttonSpacingMiddle"
                 app:srcCompat="@drawable/contract_edit" />
+
+            <Space
+                android:id="@+id/buttonSpacingRight"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonGenerateText"
+                app:layout_constraintTop_toTopOf="@+id/buttonGenerateText"
+                app:layout_constraintStart_toEndOf="@id/buttonGenerateText"
+                app:layout_constraintEnd_toStartOf="@id/buttonUploadToFirebase"
+                />
 
             <ImageButton
                 android:id="@+id/buttonUploadToFirebase"
@@ -217,9 +250,10 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:tooltipText="Upload Post"
-                app:layout_constraintBottom_toBottomOf="@+id/buttonGenerateText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/buttonGenerateText"
+                app:layout_constraintBottom_toBottomOf="@id/buttonSpacingRight"
+                app:layout_constraintTop_toTopOf="@id/buttonSpacingRight"
+                app:layout_constraintStart_toEndOf="@id/buttonSpacingRight"
+                app:layout_constraintEnd_toStartOf="@id/borderSpaceRight"
                 app:srcCompat="@drawable/upload_2" />
 
             <Space
@@ -229,7 +263,8 @@
                 android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/buttonUploadToFirebase"
-                app:layout_constraintStart_toStartOf="@+id/buttonUploadToFirebase" />
+                app:layout_constraintTop_toTopOf="@+id/buttonUploadToFirebase"
+                app:layout_constraintStart_toEndOf="@+id/buttonUploadToFirebase" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/postCaptionTextInputLayout"
