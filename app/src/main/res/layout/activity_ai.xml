@@ -7,38 +7,26 @@
     tools:context=".AI">
 
     <TextView
-        android:id="@+id/generated"
-        android:layout_width="414dp"
-        android:layout_height="861dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
         android:id="@+id/prompt"
-        android:layout_width="166dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/acme"
         android:gravity="center"
         android:text="Ask Away"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/generated" />
+        app:layout_constraintTop_toTopOf="@+id/scrollView2" />
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="358dp"
-        android:layout_height="337dp"
-        app:layout_constraintBottom_toTopOf="@+id/askInput"
-        app:layout_constraintEnd_toEndOf="@+id/generated"
-        app:layout_constraintHorizontal_bias="0.472"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/inputAIText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prompt"
-        app:layout_constraintVertical_bias="0.036">
+        app:layout_constraintTop_toTopOf="@+id/guideline3">
 
         <TextView
             android:id="@+id/aiReply"
@@ -48,8 +36,8 @@
 
     <EditText
         android:id="@+id/inputAIText"
-        android:layout_width="360dp"
-        android:layout_height="42dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
         android:text="What's this food?"
@@ -62,8 +50,8 @@
 
     <Button
         android:id="@+id/askInput"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
 
         android:layout_marginTop="24dp"
         android:text="Enter"
@@ -75,8 +63,8 @@
 
     <Button
         android:id="@+id/about"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:text="About"
         android:textSize="20sp"
@@ -87,8 +75,8 @@
 
     <Button
         android:id="@+id/history"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:text="History"
         android:textSize="20sp"
@@ -99,14 +87,22 @@
 
     <Button
         android:id="@+id/recipe"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="100dp"
+        android:padding="10dp"
         android:text="Recipe"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/askInput" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="91dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
