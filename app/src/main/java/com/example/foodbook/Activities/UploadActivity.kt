@@ -44,7 +44,7 @@ class UploadActivity : AppCompatActivity()
     private lateinit var imageView: ImageView
     private lateinit var GeminitextView: TextView
     private lateinit var viewModel: AIModel
-    private lateinit var bitMap: Bitmap     // store this to firebase
+    private lateinit var bitMap: Bitmap    // store this to firebase
     private var priceRange: Float = 0.0f
 
     private val REQUEST_IMAGE_CAPTURE = 101
@@ -96,18 +96,9 @@ class UploadActivity : AppCompatActivity()
         val resultLatLng = findViewById<TextView>(R.id.LocationLatLongTextView)
         val resultLocation = findViewById<TextView>(R.id.LocationNameTextView)
         val homepagebutton = findViewById<Button>(R.id.homepageButton)
-//        val priceButton1 = findViewById<ImageButton>(R.id.price1)
-//        val priceButton2 = findViewById<ImageButton>(R.id.price2)
-//        val priceButton3 = findViewById<ImageButton>(R.id.price3)
         val ratingbar = findViewById<RatingBar>(R.id.ratingBar3)
         val rotateleftbutton = findViewById<Button>(R.id.rotateLeftButton)
         val rotaterightbutton = findViewById<Button>(R.id.rotateRightButton)
-
-//        val clearImageButtons: () -> Unit = {
-//            priceButton1.setImageResource(R.drawable.normal_baseline_attach_money_24)
-//            priceButton2.setImageResource(R.drawable.normal_baseline_attach_money_24)
-//            priceButton3.setImageResource(R.drawable.normal_baseline_attach_money_24)
-//        }
 
         homepagebutton.setOnClickListener {
             val intent = Intent(this, HomepageActivity::class.java)
@@ -150,27 +141,6 @@ class UploadActivity : AppCompatActivity()
             println("PRICE RATING: ${priceRange}")
             // Update UI or perform other actions based on the new rating
         }
-
-//        priceButton1.setOnClickListener {
-//            priceRange = 1
-//            clearImageButtons()
-//            priceButton1.setImageResource(R.drawable.selected_baseline_attach_money_24)
-//        }
-//
-//        priceButton2.setOnClickListener {
-//            priceRange = 2
-//            clearImageButtons()
-//            priceButton1.setImageResource(R.drawable.selected_baseline_attach_money_24)
-//            priceButton2.setImageResource(R.drawable.selected_baseline_attach_money_24)
-//        }
-//
-//        priceButton3.setOnClickListener {
-//            priceRange = 3
-//            clearImageButtons()
-//            priceButton1.setImageResource(R.drawable.selected_baseline_attach_money_24)
-//            priceButton2.setImageResource(R.drawable.selected_baseline_attach_money_24)
-//            priceButton3.setImageResource(R.drawable.selected_baseline_attach_money_24)
-//        }
 
         autocompleteFragment.setLocationBias(RectangularBounds.newInstance(LatLng(-33.0, 151.0), LatLng(-33.0, 152.0)))
         autocompleteFragment.setCountries("SG")
@@ -259,6 +229,11 @@ class UploadActivity : AppCompatActivity()
 
         if(LocationresultLatLang.isEmpty() or LocationresultName.isEmpty()) {
             Toast.makeText(this, "Please choose a location", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if(imageView.drawable == null) {
+            Toast.makeText(this, "Please upload an image", Toast.LENGTH_SHORT).show()
             return
         }
 
