@@ -10,9 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -73,9 +71,9 @@
 
             <TextView
                 android:id="@+id/geminiPrompt"
-                android:layout_width="359dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="1dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/textview_border"
                 android:text="Gemini Prompt Result: "
