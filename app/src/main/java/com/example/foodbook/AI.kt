@@ -17,6 +17,7 @@ class AI : AppCompatActivity() {
     lateinit var viewModel: AIModel
     lateinit var bitMap : Bitmap
     lateinit var aiReply : TextView
+    lateinit var prompt : TextView
     lateinit var editText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +25,8 @@ class AI : AppCompatActivity() {
         setContentView(R.layout.activity_ai)
 
         aiReply = findViewById(R.id.aiReply)
+        prompt = findViewById(R.id.prompt)
+        
         viewModel = ViewModelProvider(this).get(AIModel::class.java)
         viewModel.textResult.observe(this, Observer { result ->
             aiReply.text = result
@@ -37,25 +40,30 @@ class AI : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.askInput).setOnClickListener {
-            aiReply.text = "Loading..."
+            resetText()
             val tempString : String = editText.text.toString()
             viewModel.generateText(bitMap, tempString)
             editText.setText("")
         }
 
         findViewById<Button>(R.id.about).setOnClickListener {
-            aiReply.text = "Loading..."
+            resetText()
             viewModel.generateText(bitMap,"Tell me about this food.")
         }
 
         findViewById<Button>(R.id.history).setOnClickListener {
-            aiReply.text = "Loading..."
+            resetText()
             viewModel.generateText(bitMap,"What's the history of this food?")
         }
 
         findViewById<Button>(R.id.recipe).setOnClickListener {
-            aiReply.text = "Loading..."
+            resetText()
             viewModel.generateText(bitMap,"What's the recipe for this food?")
         }
+    }
+
+    private fun resetText() {
+        aiReply.text = "Loading..."
+        prompt.text = ""
     }
 }
