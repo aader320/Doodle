@@ -37,20 +37,24 @@ class AI : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.askInput).setOnClickListener {
+            aiReply.text = "Loading..."
             val tempString : String = editText.text.toString()
             viewModel.generateText(bitMap, tempString)
             editText.setText("")
         }
 
         findViewById<Button>(R.id.about).setOnClickListener {
+            aiReply.text = "Loading..."
             viewModel.generateText(bitMap,"Tell me about this food.")
         }
 
         findViewById<Button>(R.id.history).setOnClickListener {
+            aiReply.text = "Loading..."
             viewModel.generateText(bitMap,"What's the history of this food?")
         }
 
         findViewById<Button>(R.id.recipe).setOnClickListener {
+            aiReply.text = "Loading..."
             viewModel.generateText(bitMap,"What's the recipe for this food?")
         }
     }
