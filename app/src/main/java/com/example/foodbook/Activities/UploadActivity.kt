@@ -47,7 +47,7 @@ class UploadActivity : AppCompatActivity()
     private lateinit var GeminitextView: TextView
     private lateinit var viewModel: AIModel
     private lateinit var bitMap: Bitmap     // store this to firebase
-    private var priceRange: Int = 0
+    private var priceRange: Float = 0.0f
 
     private val REQUEST_IMAGE_CAPTURE = 101
     private val PICK_IMAGE_REQUEST = 102
@@ -83,7 +83,11 @@ class UploadActivity : AppCompatActivity()
         Places.initialize(applicationContext, "AIzaSyAiaPMS-yV8eKDHSLipnAypwshfVd0kWog")
         val placesClient: PlacesClient = Places.createClient(this)
 
-        userEmail = intent.getStringExtra("USER_EMAIL").toString()
+        if(userEmail == "") {
+            userEmail = intent.getStringExtra("USER_EMAIL").toString()
+        }
+
+        println("useremail: ${userEmail}")
     }
 
 
@@ -146,7 +150,12 @@ class UploadActivity : AppCompatActivity()
             UploadFile(lStorage)
         }
 
-        priceRange = ratingbar.rating.toInt()
+
+        ratingbar.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { _, rating, _ ->
+            priceRange = rating
+            println("PRICE RATING: ${priceRange}")
+            // Update UI or perform other actions based on the new rating
+        }
 
 //        priceButton1.setOnClickListener {
 //            priceRange = 1
@@ -250,17 +259,17 @@ class UploadActivity : AppCompatActivity()
         }
 
         if(caption.isEmpty()) {
-            Toast.makeText(this, "Please Input a caption!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please Input a caption", Toast.LENGTH_SHORT).show()
             return
         }
 
         if(LocationresultLatLang.isEmpty() or LocationresultName.isEmpty()) {
-            Toast.makeText(this, "Please choose a location!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please choose a location", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if(priceRange == 0)  {
-            Toast.makeText(this, "Please select a price range!", Toast.LENGTH_SHORT).show()
+        if(priceRange == 0.0f)  {
+            Toast.makeText(this, "Please select a rating", Toast.LENGTH_SHORT).show()
             return
         }
 

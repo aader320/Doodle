@@ -68,13 +68,13 @@ interface PostsDAO
     @Update
     suspend fun updatePost(post: Post)
 
-    @Query("SELECT * FROM Posts_Table ORDER BY post_id DESC")
+    @Query("SELECT * FROM Posts_Table ORDER BY post_id ASC")
     fun getAllPosts(): Flow<List<Post>>
 
-    @Query("SELECT * FROM Posts_Table WHERE dateTime = :postDateTime ORDER BY post_id DESC")
+    @Query("SELECT * FROM Posts_Table WHERE dateTime = :postDateTime ORDER BY post_id ASC")
     fun getPostsByDateTime(postDateTime: Long): List<Post>
 
-    @Query("SELECT * FROM Posts_Table WHERE userEmail = :inputUserEmail ORDER BY post_id DESC")
+    @Query("SELECT * FROM Posts_Table WHERE userEmail = :inputUserEmail ORDER BY post_id ASC")
     fun getPostsByUser(inputUserEmail : String): List<Post>
 
     @Query("DELETE FROM Posts_Table")

@@ -136,6 +136,10 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
                         var imageTimePosted = metadata.getCustomMetadata("TimeSinceEpoch") ?: "1000"
                         var imagePriceRange = metadata.getCustomMetadata("Price_Range") ?: "1"
 
+                        if(imagePriceRange == "0") {
+                            imagePriceRange = "1"
+                        }
+
                         // Add the post to the list
                         //posts.add(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong())) // Increment completed tasks
                         postViewModel.insert(Post(imageUrl = imageDownloadURL, caption = imageCaption, location = imageLocation, userEmail = imageUserEmail, dateTime = imageTimePosted.toLong(), location_name = imageLocationName, price_range = imagePriceRange))
