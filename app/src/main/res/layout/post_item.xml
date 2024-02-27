@@ -23,12 +23,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="577dp"
+            android:layout_margin="8dp"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageViewPost"
                 android:layout_width="match_parent"
-                android:layout_height="380dp"
+                android:layout_height="344dp"
                 app:srcCompat="@drawable/ic_dashboard_black_24dp" />
 
             <TextView
@@ -37,7 +38,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/allerta"
                 android:gravity="center"
-                android:text="Caption" />
+                android:text="Caption"
+                android:textSize="24sp" />
 
             <RatingBar
                 android:id="@+id/ratingBar2"
@@ -47,11 +49,6 @@
                 android:numStars="3"
                 android:stepSize="1"
                 android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/textViewUsername2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textViewLocation"
@@ -64,6 +61,7 @@
                 android:id="@+id/textViewLocationName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:layout_marginTop="8dp"
                 android:text="LOCATION NAME" />
 
@@ -71,12 +69,14 @@
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:text="TIME SINCE EPOCH" />
 
             <TextView
                 android:id="@+id/textViewUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:text="TextView" />
         </LinearLayout>
 
