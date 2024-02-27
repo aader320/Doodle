@@ -82,7 +82,8 @@ class HomepageActivity : AppCompatActivity(), OnPostClickListener
 
         onclicklisteners()
 
-        userEmail = intent.getStringExtra("USER_EMAIL").toString()
+        println("homepageactivity oncreate user email: ${userEmail}")
+        //userEmail = intent.getStringExtra("USER_EMAIL").toString()
     }
 
 

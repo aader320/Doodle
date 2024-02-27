@@ -38,8 +38,6 @@ import com.google.firebase.storage.storageMetadata
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
-var userEmail: String = ""
-
 class UploadActivity : AppCompatActivity()
 {
     // upload items
@@ -83,11 +81,7 @@ class UploadActivity : AppCompatActivity()
         Places.initialize(applicationContext, "AIzaSyAiaPMS-yV8eKDHSLipnAypwshfVd0kWog")
         val placesClient: PlacesClient = Places.createClient(this)
 
-        if(userEmail == "") {
-            userEmail = intent.getStringExtra("USER_EMAIL").toString()
-        }
-
-        println("useremail: ${userEmail}")
+        println("uploadactivity oncreate user email: ${userEmail}")
     }
 
 

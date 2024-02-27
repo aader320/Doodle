@@ -14,6 +14,8 @@ import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import com.example.foodbook.R
 
+var userEmail: String = ""
+
 class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivitySignInBinding
@@ -52,6 +54,7 @@ class SignInActivity : AppCompatActivity() {
                     if(it.isSuccessful) {
                         // if the signin is successful
                         Toast.makeText(this, "Sign in Successful", Toast.LENGTH_SHORT).show()
+                        userEmail = email
                         val intent = Intent(this, HomepageActivity::class.java).apply {
                             putExtra("USER_EMAIL", email)
                         }
