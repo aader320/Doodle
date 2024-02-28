@@ -106,8 +106,17 @@ class UploadActivity : AppCompatActivity()
         }
 
         generateText.setOnClickListener {
-            viewModel.generateText(bitMap, "What's this item? Think of an informal foodie caption for me")
-            GeminitextView.visibility = View.VISIBLE
+            if (imageView.drawable != null) {
+                viewModel.generateText(
+                    bitMap,
+                    "What's this item? Think of an informal foodie caption for me"
+                )
+                GeminitextView.visibility = View.VISIBLE
+            }
+            else
+            {
+                Toast.makeText(this, "Please upload an image", Toast.LENGTH_SHORT).show()
+            }
         }
 
         captureButton.setOnClickListener {
